@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1053071529697",
+    "project_id": "punjablottery-9c692",
+    "storage_bucket": "punjablottery-9c692.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053071529697:android:eaec25df279360167149a0",
+        "android_client_info": {
+          "package_name": "com.queuetoken"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcIDgiZQ86543YZMy5f0iklsbW1e4peyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
