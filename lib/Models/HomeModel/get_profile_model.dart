@@ -1,4 +1,4 @@
-/// profile : {"user_id":"169","user_name":"Surendra ","email":"","mobile":"8080808080","password":"","api_key":"","referral_code":"6392d912776d","referred_by":null,"security_pin":"1600","image":"https://developmentalphawizz.com/queue_token/uploads/img/user/2553010329833709927.jpg","wallet_balance":"0","hold_amount":"0","last_update":"2023-12-14 17:15:58","insert_date":"14-Dec-2023","status":"1","verified":"1","betting_status":"0","notification_status":"1","transfer_point_status":"0","role":"user","address":null,"city":"indore ","category":null,"time_per_client":null,"shift":null,"shift_hrs":null}
+/// profile : {"user_id":"220","queue_token":"ujj220","user_name":"metanta","email":"","mobile":"1212121212","password":"","api_key":"","referral_code":"6d83d9162850","referred_by":null,"security_pin":"5063","image":"https://developmentalphawizz.com/queue_token/uploads/img/user/user.png","wallet_balance":"0","hold_amount":"0","last_update":"2023-12-26 19:46:02","insert_date":"26-Dec-2023","status":"1","verified":"1","betting_status":"0","notification_status":"1","transfer_point_status":"0","role":"counter","address":"nanakheda ujjain ","city":"ujjain","category":null,"time_per_client":null,"shift":" To ","shift_hrs":null}
 /// msg : "User Profile Data."
 /// status : true
 
@@ -43,36 +43,38 @@ GetProfileModel copyWith({  Profile? profile,
 
 }
 
-/// user_id : "169"
-/// user_name : "Surendra "
+/// user_id : "220"
+/// queue_token : "ujj220"
+/// user_name : "metanta"
 /// email : ""
-/// mobile : "8080808080"
+/// mobile : "1212121212"
 /// password : ""
 /// api_key : ""
-/// referral_code : "6392d912776d"
+/// referral_code : "6d83d9162850"
 /// referred_by : null
-/// security_pin : "1600"
-/// image : "https://developmentalphawizz.com/queue_token/uploads/img/user/2553010329833709927.jpg"
+/// security_pin : "5063"
+/// image : "https://developmentalphawizz.com/queue_token/uploads/img/user/user.png"
 /// wallet_balance : "0"
 /// hold_amount : "0"
-/// last_update : "2023-12-14 17:15:58"
-/// insert_date : "14-Dec-2023"
+/// last_update : "2023-12-26 19:46:02"
+/// insert_date : "26-Dec-2023"
 /// status : "1"
 /// verified : "1"
 /// betting_status : "0"
 /// notification_status : "1"
 /// transfer_point_status : "0"
-/// role : "user"
-/// address : null
-/// city : "indore "
+/// role : "counter"
+/// address : "nanakheda ujjain "
+/// city : "ujjain"
 /// category : null
 /// time_per_client : null
-/// shift : null
+/// shift : " To "
 /// shift_hrs : null
 
 class Profile {
   Profile({
       String? userId, 
+      String? queueToken, 
       String? userName, 
       String? email, 
       String? mobile, 
@@ -92,13 +94,14 @@ class Profile {
       String? notificationStatus, 
       String? transferPointStatus, 
       String? role, 
-      dynamic address, 
+      String? address, 
       String? city, 
       dynamic category, 
       dynamic timePerClient, 
-      dynamic shift, 
+      String? shift, 
       dynamic shiftHrs,}){
     _userId = userId;
+    _queueToken = queueToken;
     _userName = userName;
     _email = email;
     _mobile = mobile;
@@ -128,6 +131,7 @@ class Profile {
 
   Profile.fromJson(dynamic json) {
     _userId = json['user_id'];
+    _queueToken = json['queue_token'];
     _userName = json['user_name'];
     _email = json['email'];
     _mobile = json['mobile'];
@@ -155,6 +159,7 @@ class Profile {
     _shiftHrs = json['shift_hrs'];
   }
   String? _userId;
+  String? _queueToken;
   String? _userName;
   String? _email;
   String? _mobile;
@@ -174,13 +179,14 @@ class Profile {
   String? _notificationStatus;
   String? _transferPointStatus;
   String? _role;
-  dynamic _address;
+  String? _address;
   String? _city;
   dynamic _category;
   dynamic _timePerClient;
-  dynamic _shift;
+  String? _shift;
   dynamic _shiftHrs;
 Profile copyWith({  String? userId,
+  String? queueToken,
   String? userName,
   String? email,
   String? mobile,
@@ -200,13 +206,14 @@ Profile copyWith({  String? userId,
   String? notificationStatus,
   String? transferPointStatus,
   String? role,
-  dynamic address,
+  String? address,
   String? city,
   dynamic category,
   dynamic timePerClient,
-  dynamic shift,
+  String? shift,
   dynamic shiftHrs,
 }) => Profile(  userId: userId ?? _userId,
+  queueToken: queueToken ?? _queueToken,
   userName: userName ?? _userName,
   email: email ?? _email,
   mobile: mobile ?? _mobile,
@@ -234,6 +241,7 @@ Profile copyWith({  String? userId,
   shiftHrs: shiftHrs ?? _shiftHrs,
 );
   String? get userId => _userId;
+  String? get queueToken => _queueToken;
   String? get userName => _userName;
   String? get email => _email;
   String? get mobile => _mobile;
@@ -253,16 +261,17 @@ Profile copyWith({  String? userId,
   String? get notificationStatus => _notificationStatus;
   String? get transferPointStatus => _transferPointStatus;
   String? get role => _role;
-  dynamic get address => _address;
+  String? get address => _address;
   String? get city => _city;
   dynamic get category => _category;
   dynamic get timePerClient => _timePerClient;
-  dynamic get shift => _shift;
+  String? get shift => _shift;
   dynamic get shiftHrs => _shiftHrs;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['user_id'] = _userId;
+    map['queue_token'] = _queueToken;
     map['user_name'] = _userName;
     map['email'] = _email;
     map['mobile'] = _mobile;

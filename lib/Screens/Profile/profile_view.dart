@@ -157,6 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Center(child: Text("${getProfileModel?.profile?.userName}",style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500,color: AppColors.fntClr),)),
                     Center(child: Text("${getProfileModel?.profile?.mobile}",style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500,color: AppColors.fntClr),)),
+                    Center(child: Text("${getProfileModel?.profile?.queueToken}",style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500,color: AppColors.fntClr),)),
                     Center(child: InkWell(
                       onTap: () async {
                         await  Navigator.push(context, MaterialPageRoute(builder: (context)=>EditProfileScreen(getProfileModel: getProfileModel,))).then((value) => getProfile());

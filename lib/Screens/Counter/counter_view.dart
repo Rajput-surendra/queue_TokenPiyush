@@ -15,7 +15,8 @@ import '../../Utils/extentions.dart';
 class CounterScreen extends StatefulWidget {
    CounterScreen({Key? key, this.isFrom,this.cId,this.tokenId,this.exTime,this.nextToken,this.aviToken,this.date,this.toTime,this.fTime,this.cToken}) : super(key: key);
   final bool? isFrom;
-  String? tokenId,cId,fTime,toTime,date,cToken,exTime;
+  String? tokenId,cId,fTime,toTime,date;
+   dynamic  cToken,exTime;
   int? nextToken,aviToken;
   // final GetCounterModel? getCounterModel;
 

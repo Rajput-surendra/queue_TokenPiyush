@@ -40,8 +40,8 @@ class TodaysTokens {
   String? date;
   String? createdAt;
   String? availableToken;
-  String? currentToken;
-  String? nextToken;
+  dynamic currentToken;
+  dynamic nextToken;
   String? companyName;
   String? city;
 
