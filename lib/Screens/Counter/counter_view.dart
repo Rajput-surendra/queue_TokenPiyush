@@ -68,7 +68,7 @@ class _CounterScreenState extends State<CounterScreen> {
             ),),
           toolbarHeight: 60,
           centerTitle: true,
-          title: Text("Booking ",style: TextStyle(fontSize: 17),),
+          title: Text("Booking Details ",style: TextStyle(fontSize: 17),),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
               borderRadius:   BorderRadius.only(
@@ -102,9 +102,9 @@ class _CounterScreenState extends State<CounterScreen> {
                                      Text("Time:"),
                                      Row(
                                        children: [
-                                         Text("${widget.toTime}",style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.fntClr)),
+                                         Text("${widget.fTime}",style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.fntClr)),
                                          SizedBox(width: 5,),
-                                         Text("to ${widget.fTime}",style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.fntClr)),
+                                         Text("to ${widget.toTime}",style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.fntClr)),
                                        ],
                                      ),
                                    ],

@@ -22,8 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
-  final TextEditingController _mobile = TextEditingController();
-
+  bool isVisible1 = false;
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
@@ -31,26 +30,16 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (controller) =>
           Scaffold(
             backgroundColor: AppColors.primary,
-            body: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
-              child: WillPopScope(
-                onWillPop: () async {
-                  SystemNavigator.pop();
-                  return true; // This line is necessary to avoid a lint warning
-                },
-                child: Container(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height,
-                  // decoration: const BoxDecoration(
-                  //   image: DecorationImage(
-                  //     image: AssetImage("assets/images/punbabComman.png"),
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
-                  child: Form(
-                    key: _formkey,
+            body: WillPopScope(
+              onWillPop: () async {
+                SystemNavigator.pop();
+                return true; // This line is necessary to avoid a lint warning
+              },
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formkey,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       children: [
                         const SizedBox(height: 50,),
@@ -72,34 +61,73 @@ class _LoginScreenState extends State<LoginScreen> {
                         //       maxLength: 10,
                         //       controller: _mobile),
                         // ),
-                        const SizedBox(height: 150,),
+                        const SizedBox(height: 100,),
                         Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20),
                           width: double.maxFinite,
                           height: 50,
+                          padding: const EdgeInsets.all(5.0),
                           decoration: CustomBoxDecoration.myCustomDecoration(),
                           child: TextFormField(
-                            maxLength: 10,
-                            keyboardType: TextInputType.number,
-                            controller: _mobile,
+                            controller: _email,
+                            keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
-                                counterText: "",
-                                hintText: "Mobile Number",
-                                contentPadding: EdgeInsets.only(left: 10),
-                                //  prefixIcon: Icon(Icons.call),
+                                hintText: "Enter Email",
+                                contentPadding: EdgeInsets.only(left: 10,bottom: 5),
                                 border: InputBorder.none
                             ),
                             style: const TextStyle(fontSize: 14),
-
+                            validator: (value){
+                              if (value!.isEmpty) {
+                                return 'Email is required';
+                              }
+                              if(!value.contains('@')){
+                                return 'Invalid Email';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          width: double.maxFinite,
+                          height: 50,
+                          padding: const EdgeInsets.all(5.0),
+                          decoration: CustomBoxDecoration.myCustomDecoration(),
+                          child: TextFormField(
+                            obscureText: isVisible1 ? false : true,
+                            controller: _password,
+                            decoration:  InputDecoration(
+                              hintText: "Enter Password",
+                              contentPadding: EdgeInsets.only(left: 10,top: 8),
+                              border: InputBorder.none,
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isVisible1 ? isVisible1 = false : isVisible1 = true;
+                                  });
+                                },
+                                icon: Icon(
+                                  isVisible1
+                                      ? Icons.remove_red_eye
+                                      : Icons.visibility_off,
+                                  color:  AppColors.primary,
+                                ),
+                              ),
+                            ),
+                            style: const TextStyle(fontSize: 14),
                             validator: (val) {
-
                               if (val!.isEmpty) {
-                                return "Mobile cannot be empty";
-                              } else if (val.length < 10) {
-                                return "Please enter mobile must 10 digit";
+                                return "Password cannot be empty";
+                              } else if (val.length < 2) {
+                                return "Please enter must 2 digit";
                               }
                             },
                           ),
+                        ),
+                        const SizedBox(
+                          height: 15,
                         ),
                         const SizedBox(height: 60,),
                         Padding(
@@ -107,17 +135,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: AppButton(
                               title: controller.isLoading == true
                                   ? 'please wait...'
-                                  : 'Send OTP', onTap: () {
+                                  : 'Login', onTap: () {
                             if (_formkey.currentState!.validate()) {
-                              controller.sendOtp(mobile: _mobile.text);
+                              controller.sendOtp(email: _email.text,password: _password.text);
                             } else {
                               Fluttertoast.showToast(
-                                  msg: "Please enter mobile number");
+                                  msg: "All field are required");
                             }
                           }),
                         ),
                         const SizedBox(
-                          height: 120,
+                          height: 100,
                         ),
                         Row(
                           mainAxisAlignment:

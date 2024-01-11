@@ -67,6 +67,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
               itemCount:getTokenListModel!.data!.length ,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
+
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return InkWell(

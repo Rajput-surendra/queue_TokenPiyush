@@ -103,8 +103,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   padding: const EdgeInsets.all(5.0),
                   decoration: CustomBoxDecoration.myCustomDecoration(),
                   child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    maxLength: 3,
+                    keyboardType: TextInputType.text,
                     controller:counterIdController,
                     decoration: const InputDecoration(
                         counterText: "",
@@ -143,8 +142,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
 
-                Center(child: Text("or")),
-                const SizedBox(height: 5,),
+
+                const SizedBox(height: 15,),
                 Container(
                   margin: EdgeInsets.only(left: 3,right: 3),
                   width: double.maxFinite,
@@ -306,7 +305,7 @@ class _SearchScreenState extends State<SearchScreen> {
     nameController.text.isEmpty ? "":'counter_name':nameController.text,
     cityController.text.isEmpty? "":'counter_city':cityController.text,
     catId == null ? "" : 'counter_category':catId.toString(),
-    counterIdController.text.isEmpty ? "":'counter_id':counterIdController.text,
+    counterIdController.text.isEmpty ? "":'unique_id':counterIdController.text,
 
   });
   request.headers.addAll(headers);

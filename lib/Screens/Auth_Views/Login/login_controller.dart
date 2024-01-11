@@ -3,10 +3,13 @@ import 'package:booknplay/Controllers/app_base_controller/app_base_controller.da
 import 'package:booknplay/Local_Storage/shared_pre.dart';
 import 'package:booknplay/Routes/routes.dart';
 import 'package:booknplay/Services/api_services/apiStrings.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../../Models/auth_response_model.dart';
+import '../../PushNotification/notification_service.dart';
 
 class LoginController extends AppBaseController {
   bool isHidden = true;
@@ -18,7 +21,7 @@ class LoginController extends AppBaseController {
 
   bool isLoading = false;
 
-  User? userData;
+  //User? userData;
 
   @override
   Future<void> onInit() async {
@@ -78,28 +81,55 @@ class LoginController extends AppBaseController {
   //     isLoading.value = false;
   //   });
   // }
-
-  Future<void> sendOtp({required String mobile}) async {
+  String? role;
+  Future<void> sendOtp({required String email,password}) async {
+    // String? token ;
+    // try{
+    //   token  = await FirebaseMessaging.instance.getToken();
+    //
+    // } on FirebaseException{
+    // }
+    //print('____Som______${token}_________');
     update();
     isLoading= true;
 
     var param = {
-      'mobile': mobile,
-      'app_key':"#63Y@#)KLO57991(\$457D9(JE4dY3d2250f\$%#(mhgamesapp!xyz!punjablottery)8fm834(HKU8)5grefgr48mg1"
+      'email': email,
+      'password':password,
+      'type':'email',
+      'app_key':""
     };
+    print('____Som______${param}_________');
     apiBaseHelper.postAPICall(sendOTPAPI, param).then((getData) {
       bool status = getData['status'];
       String msg = getData['msg'];
-      String otp = getData['otp'];
-      if (status) {
+       role = getData['data']['role'];
+       print('____Som______${role}_________');
+      if (status == true) {
+        SharedPre.setValue('userData', getData['data']['user_name']);
+        SharedPre.setValue('userMobile', getData['data']['mobile']);
+        SharedPre.setValue('userReferCode', getData['data']['referral_code']);
+        SharedPre.setValue('balanceUser', getData['data']['wallet_balance']);
+        SharedPre.setValue('userId', getData['data']['user_id'].toString());
+        SharedPre.setValue('userRole', getData['data']['role']);
         Fluttertoast.showToast(msg: msg);
-
-        Get.toNamed(otpScreen, arguments: [mobile, otp]);
+        if(role == "user"){
+          Get.offAllNamed(search);
+        }else{
+          if(role == 'user'){
+            Get.offAllNamed(bottomBar);
+          }else{
+            Get.offAllNamed(bottomBar1);
+          }
+        }
+      }
+      else {
+        Fluttertoast.showToast(msg: "Please register yourself first.");
         update();
         isLoading = false;
-      } else {
-        Fluttertoast.showToast(msg: msg);
+
       }
+     update();
       isLoading = false;
     });
   }

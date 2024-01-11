@@ -15,19 +15,19 @@ import '../../Models/get_sub_plan_model.dart';
 import '../../Services/api_services/apiConstants.dart';
 import '../../Services/api_services/apiStrings.dart';
 import '../../Utils/extentions.dart';
-import 'add_create_token_view.dart';
-import 'create_token_details.dart';
+import '../Screens/CreateToken/add_create_token_view.dart';
+import 'queue_details.dart';
 
-class CreateTokenScreen extends StatefulWidget {
-  CreateTokenScreen({
+class MyQueueScreen extends StatefulWidget {
+  MyQueueScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<CreateTokenScreen> createState() => _CreateTokenScreenState();
+  State<MyQueueScreen> createState() => _MyQueueScreenState();
 }
 
-class _CreateTokenScreenState extends State<CreateTokenScreen> {
+class _MyQueueScreenState extends State<MyQueueScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -51,12 +51,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton:  FloatingActionButton(
-          onPressed: () async {
-            await  Navigator.push(context, MaterialPageRoute(builder: (context)=> AddCreateTokenScreen())).then((value) => getTokenApi());
-          },
-          child: Icon(Icons.add),
-        ),
+
         backgroundColor: AppColors.whit,
         appBar: AppBar(
           leading: InkWell(
@@ -96,7 +91,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
              getTokenApi();
             });
           },
-          child: getTokenModel?.todayTokens == null? Center(child: Center(child: const CircularProgressIndicator())): getTokenModel!.todayTokens!.isEmpty ? Text("No Tokens"):  ListView.builder(
+          child:  getTokenModel?.todayTokens == null? Center(child: Center(child: const CircularProgressIndicator())): getTokenModel!.todayTokens!.isEmpty ? Text("No Tokens"): ListView.builder(
               itemCount: 1,
               itemBuilder: (context,i){
                 return  SingleChildScrollView(
@@ -112,11 +107,12 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                             height: MediaQuery.of(context).size.width/1.1,
                             child: getTokenModel?.todayTokens?.isEmpty ?? false ? Center(child: const Text("No Todays Tokens")):ListView.builder(
                                 itemCount: getTokenModel?.todayTokens?.length ?? 0,
+                                reverse: true,
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context,i){
                                   return  InkWell(
                                       onTap: (){
-                                      //  Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateTokenDetails(tokenTd: getTokenModel?.todayTokens?[i].id,)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> QueueDetails(tokenTd: getTokenModel?.todayTokens?[i].id,)));
                                     },
                                     child: Container(
                                       width: MediaQuery.of(context).size.width/1.1,
@@ -151,7 +147,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                                                 children: [
 
                                                   Text("From Time:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  Text(" ${getTokenModel?.todayTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
 
@@ -160,7 +156,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text("To Time:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  Text(" ${getTokenModel?.todayTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
                                               SizedBox(height: 5,),
@@ -172,68 +168,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                                                 ],
                                               ),
                                               SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  InkWell(
-                                                    onTap: (){
-                                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> AddCreateTokenScreen(tokenId: getTokenModel?.todayTokens?[i].id,isUpdate: true))).then((value) => getTokenApi());
-                                                    },
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 80,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(10),
 
-                                                          color: AppColors.primary
-                                                      ),
-                                                      child: Center(child: Text("Update",style: TextStyle(color: AppColors.whit),)),
-                                                    ),
-                                                  ),
-                                                  InkWell(
-                                                    onTap: (){
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (context) => Dialog(
-                                                          child: ListView(
-                                                            padding: const EdgeInsets.symmetric(
-                                                              vertical: 10,
-                                                            ),
-                                                            shrinkWrap: true,
-                                                            children: ['Delete from Token']
-                                                                .map(
-                                                                  (e) => InkWell(
-                                                                onTap: () async {
-                                                                  deleteApi(getTokenModel?.todayTokens![i].id ?? "");
-                                                                  Navigator.of(context).pop();
-                                                                },
-                                                                child: Container(
-                                                                  padding: const EdgeInsets.symmetric(
-                                                                    vertical: 10,
-                                                                    horizontal: 10,
-                                                                  ),
-                                                                  child: Text(e),
-                                                                ),
-                                                              ),
-                                                            )
-                                                                .toList(),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 80,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(10),
-
-                                                        color: AppColors.red
-                                                      ),
-                                                      child: Center(child: Text("Delete",style: TextStyle(color: AppColors.whit),)),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
                                             ],
 
                                           ),
@@ -263,7 +198,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                                 itemBuilder: (context,i){
                                   return  InkWell(
                                     onTap: (){
-                                     // Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateTokenDetails(tokenTd: getTokenModel?.tomorrowTokens?[i].id,)));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> QueueDetails(tokenTd: getTokenModel?.tomorrowTokens?[i].id,)));
                                     },
                                     child: Container(
                                       width: MediaQuery.of(context).size.width/1.2,
@@ -316,69 +251,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                                                 ],
                                               ),
                                               SizedBox(height: 5,),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  InkWell(
-                                                    onTap: (){
-                                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> AddCreateTokenScreen(tokenId: getTokenModel?.tomorrowTokens?[i].id,isUpdate: true,))).then((value) => getTokenApi());
-                                                    },
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 80,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(10),
 
-                                                          color: AppColors.primary
-                                                      ),
-                                                      child: Center(child: Text("Update",style: TextStyle(color: AppColors.whit),)),
-                                                    ),
-                                                  ),
-                                                  InkWell(
-                                                    onTap: (){
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (context) => Dialog(
-                                                          child: ListView(
-                                                            padding: const EdgeInsets.symmetric(
-                                                              vertical: 10,
-                                                            ),
-                                                            shrinkWrap: true,
-                                                            children: ['Delete from Token']
-                                                                .map(
-                                                                  (e) => InkWell(
-                                                                onTap: () async {
-                                                                  deleteApi(getTokenModel?.tomorrowTokens![i].id ?? "");
-                                                                  Navigator.of(context).pop();
-                                                                },
-                                                                child: Container(
-                                                                  padding: const EdgeInsets.symmetric(
-                                                                    vertical: 10,
-                                                                    horizontal: 10,
-                                                                  ),
-                                                                  child: Text(e),
-                                                                ),
-                                                              ),
-                                                            )
-                                                                .toList(),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 80,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(10),
-
-                                                          color: AppColors.red
-                                                      ),
-                                                      child: Center(child: Text("Delete",style: TextStyle(color: AppColors.whit),)),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
                                             ],
                                           ),
                                         ),

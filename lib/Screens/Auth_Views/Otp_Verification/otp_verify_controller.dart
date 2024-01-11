@@ -48,10 +48,8 @@ RxBool isLoading = false.obs ;
           Get.offAllNamed(search);
         }else{
           if(role == 'user'){
-            print('__________${role}_________');
             Get.offAllNamed(bottomBar);
           }else{
-            print('__________${role}_________');
             Get.offAllNamed(bottomBar1);
           }
 

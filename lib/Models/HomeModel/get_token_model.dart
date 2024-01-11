@@ -1,7 +1,7 @@
 /// error : false
 /// message : "Tokens Found Sucessfully !"
-/// today_tokens : [{"id":"25","user_name":"Sr.Vishal","counter_id":"102","category":"1","time_per_client":"10","from_time":"5:00 pm","to_time":"7:30 pm","total_token":"15","date":"2023-11-28","created_at":"2023-11-28 16:14:16"}]
-/// tomorrow_tokens : [{"id":"27","user_name":"Sr.Vishal","counter_id":"102","category":"1","time_per_client":"10","from_time":"5:00 pm","to_time":"7:30 pm","total_token":"15","date":"2023-11-29","created_at":"2023-11-28 16:14:16"}]
+/// today_tokens : [{"id":"2","user_name":"Dr. rakesh sharma","counter_id":"1","category":"1","time_per_client":"5","from_time":"02:00 PM","to_time":"01:00 PM","total_token":"12","date":"2024-01-11","created_at":"2024-01-11 12:07:28","unique_id":"Ind001"}]
+/// tomorrow_tokens : [{"id":"3","user_name":"cash counter ","counter_id":"1","category":"2","time_per_client":"10","from_time":"02:00 PM","to_time":"09:00 AM","total_token":"30","date":"2024-01-12","created_at":"2024-01-11 12:08:32","unique_id":"Ind001"}]
 
 class GetTokenModel {
   GetTokenModel({
@@ -64,16 +64,17 @@ GetTokenModel copyWith({  bool? error,
 
 }
 
-/// id : "27"
-/// user_name : "Sr.Vishal"
-/// counter_id : "102"
-/// category : "1"
+/// id : "3"
+/// user_name : "cash counter "
+/// counter_id : "1"
+/// category : "2"
 /// time_per_client : "10"
-/// from_time : "5:00 pm"
-/// to_time : "7:30 pm"
-/// total_token : "15"
-/// date : "2023-11-29"
-/// created_at : "2023-11-28 16:14:16"
+/// from_time : "02:00 PM"
+/// to_time : "09:00 AM"
+/// total_token : "30"
+/// date : "2024-01-12"
+/// created_at : "2024-01-11 12:08:32"
+/// unique_id : "Ind001"
 
 class TomorrowTokens {
   TomorrowTokens({
@@ -86,7 +87,8 @@ class TomorrowTokens {
       String? toTime, 
       String? totalToken, 
       String? date, 
-      String? createdAt,}){
+      String? createdAt, 
+      String? uniqueId,}){
     _id = id;
     _userName = userName;
     _counterId = counterId;
@@ -97,6 +99,7 @@ class TomorrowTokens {
     _totalToken = totalToken;
     _date = date;
     _createdAt = createdAt;
+    _uniqueId = uniqueId;
 }
 
   TomorrowTokens.fromJson(dynamic json) {
@@ -110,6 +113,7 @@ class TomorrowTokens {
     _totalToken = json['total_token'];
     _date = json['date'];
     _createdAt = json['created_at'];
+    _uniqueId = json['unique_id'];
   }
   String? _id;
   String? _userName;
@@ -121,6 +125,7 @@ class TomorrowTokens {
   String? _totalToken;
   String? _date;
   String? _createdAt;
+  String? _uniqueId;
 TomorrowTokens copyWith({  String? id,
   String? userName,
   String? counterId,
@@ -131,6 +136,7 @@ TomorrowTokens copyWith({  String? id,
   String? totalToken,
   String? date,
   String? createdAt,
+  String? uniqueId,
 }) => TomorrowTokens(  id: id ?? _id,
   userName: userName ?? _userName,
   counterId: counterId ?? _counterId,
@@ -141,6 +147,7 @@ TomorrowTokens copyWith({  String? id,
   totalToken: totalToken ?? _totalToken,
   date: date ?? _date,
   createdAt: createdAt ?? _createdAt,
+  uniqueId: uniqueId ?? _uniqueId,
 );
   String? get id => _id;
   String? get userName => _userName;
@@ -152,6 +159,7 @@ TomorrowTokens copyWith({  String? id,
   String? get totalToken => _totalToken;
   String? get date => _date;
   String? get createdAt => _createdAt;
+  String? get uniqueId => _uniqueId;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -165,21 +173,23 @@ TomorrowTokens copyWith({  String? id,
     map['total_token'] = _totalToken;
     map['date'] = _date;
     map['created_at'] = _createdAt;
+    map['unique_id'] = _uniqueId;
     return map;
   }
 
 }
 
-/// id : "25"
-/// user_name : "Sr.Vishal"
-/// counter_id : "102"
+/// id : "2"
+/// user_name : "Dr. rakesh sharma"
+/// counter_id : "1"
 /// category : "1"
-/// time_per_client : "10"
-/// from_time : "5:00 pm"
-/// to_time : "7:30 pm"
-/// total_token : "15"
-/// date : "2023-11-28"
-/// created_at : "2023-11-28 16:14:16"
+/// time_per_client : "5"
+/// from_time : "02:00 PM"
+/// to_time : "01:00 PM"
+/// total_token : "12"
+/// date : "2024-01-11"
+/// created_at : "2024-01-11 12:07:28"
+/// unique_id : "Ind001"
 
 class TodayTokens {
   TodayTokens({
@@ -192,7 +202,8 @@ class TodayTokens {
       String? toTime, 
       String? totalToken, 
       String? date, 
-      String? createdAt,}){
+      String? createdAt, 
+      String? uniqueId,}){
     _id = id;
     _userName = userName;
     _counterId = counterId;
@@ -203,6 +214,7 @@ class TodayTokens {
     _totalToken = totalToken;
     _date = date;
     _createdAt = createdAt;
+    _uniqueId = uniqueId;
 }
 
   TodayTokens.fromJson(dynamic json) {
@@ -216,6 +228,7 @@ class TodayTokens {
     _totalToken = json['total_token'];
     _date = json['date'];
     _createdAt = json['created_at'];
+    _uniqueId = json['unique_id'];
   }
   String? _id;
   String? _userName;
@@ -227,6 +240,7 @@ class TodayTokens {
   String? _totalToken;
   String? _date;
   String? _createdAt;
+  String? _uniqueId;
 TodayTokens copyWith({  String? id,
   String? userName,
   String? counterId,
@@ -237,6 +251,7 @@ TodayTokens copyWith({  String? id,
   String? totalToken,
   String? date,
   String? createdAt,
+  String? uniqueId,
 }) => TodayTokens(  id: id ?? _id,
   userName: userName ?? _userName,
   counterId: counterId ?? _counterId,
@@ -247,6 +262,7 @@ TodayTokens copyWith({  String? id,
   totalToken: totalToken ?? _totalToken,
   date: date ?? _date,
   createdAt: createdAt ?? _createdAt,
+  uniqueId: uniqueId ?? _uniqueId,
 );
   String? get id => _id;
   String? get userName => _userName;
@@ -258,6 +274,7 @@ TodayTokens copyWith({  String? id,
   String? get totalToken => _totalToken;
   String? get date => _date;
   String? get createdAt => _createdAt;
+  String? get uniqueId => _uniqueId;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -271,6 +288,7 @@ TodayTokens copyWith({  String? id,
     map['total_token'] = _totalToken;
     map['date'] = _date;
     map['created_at'] = _createdAt;
+    map['unique_id'] = _uniqueId;
     return map;
   }
 

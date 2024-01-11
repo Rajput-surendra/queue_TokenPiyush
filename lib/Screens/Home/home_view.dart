@@ -16,6 +16,7 @@ import '../../Local_Storage/shared_pre.dart';
 import '../../Models/HomeModel/get_slider_model.dart';
 
 import '../../Models/get_counter_model.dart';
+import '../../MyQueue/my_queue.dart';
 import '../../Services/api_services/apiConstants.dart';
 import '../../Services/api_services/apiStrings.dart';
 import '../Counter/counter_view.dart';
@@ -193,6 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child:getCounterModel?.todaysTokens!.isEmpty ?? false ? Center(child: Text("No Today Token")): ListView.builder(
           scrollDirection: Axis.vertical,
             shrinkWrap: true,
+           reverse: true,
            physics: const NeverScrollableScrollPhysics(),
           itemCount:getCounterModel?.todaysTokens?.length ?? 0,
           itemBuilder: (context, index) {
@@ -210,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Container(
-                    height: 96,
+                    height: 110,
 
                     decoration: const BoxDecoration(
                         image: DecorationImage(
@@ -259,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: [
-                                 Row(
+                                 Column(
                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                    children: [
                                      const Text("Name :",style: TextStyle(color: AppColors.fntClr,fontSize: 12),),
@@ -267,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                      Text("${getCounterModel!.todaysTokens![index].userName}",style: const TextStyle(color: AppColors.fntClr,fontSize: 12,fontWeight: FontWeight.bold),),
                                    ],
                                  ),
-                                 Row(
+                                 Column(
                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                    children: [
                                      const Text("City : ",style: TextStyle(color: AppColors.fntClr,fontSize: 12),),
@@ -275,9 +277,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                      Text("${getCounterModel!.todaysTokens![index].city}",style: const TextStyle(color: AppColors.fntClr,fontSize: 12,fontWeight: FontWeight.bold),),
                                    ],
                                  ),
+                                 Column(
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                   children: [
+                                     const Text("Counter Id :",style: TextStyle(color: AppColors.fntClr,fontSize: 12),),
+                                     const SizedBox(width: 2,),
+                                     Text("${getCounterModel!.todaysTokens![index].uniqueId}",style: const TextStyle(color: AppColors.fntClr,fontSize: 12,fontWeight: FontWeight.bold),),
+                                   ],
+                                 ),
                                ],
                              ),
-                             SizedBox(height:10 ,),
+                             SizedBox(height:12),
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: [
@@ -294,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                    children: [
                                      const Text("Expected Time : ",style: TextStyle(color: AppColors.fntClr,fontSize: 12),),
                                      const SizedBox(width: 2,),
-                                     Text("${getCounterModel!.todaysTokens![index].toTime}",style: const TextStyle(color: AppColors.fntClr,fontSize: 12,fontWeight: FontWeight.bold),),
+                                     Text("${getCounterModel!.todaysTokens![index].fromTime}",style: const TextStyle(color: AppColors.fntClr,fontSize: 12,fontWeight: FontWeight.bold),),
                                    ],
                                  ),
                                ],
@@ -457,7 +467,7 @@ class _HomeScreenState extends State<HomeScreen> {
       userName?.isEmpty ?? false ? "" : 'counter_name': userName.toString(),
       cityName?.isEmpty ?? false? "" : 'counter_city': cityName.toString(),
       catNewId == null ? "" : 'counter_category': catNewId.toString(),
-      cId?.isEmpty ?? false? "" : 'counter_id': cId.toString(),
+      cId?.isEmpty ?? false? "" : 'unique_id': cId.toString(),
       'filter_date':dayId.toString()
     });
     print("------Surendra----rrrrrrr---${request.fields}----------");
@@ -538,22 +548,27 @@ counterUI(){
                     ),
                   ),
                   const SizedBox(height: 10,),
-                  Container(
-                    height: 120,
-                    decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                            colors: [
-                              AppColors.primary,
-                              Color(0xFF00CCFF),
-                            ],
-                            begin: FractionalOffset(0.0, 1.0),
-                            end: FractionalOffset(1.0, 0.0),
-                            stops: [0.0, 1.1],
-                            tileMode: TileMode.clamp),
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Center(child: const Text("My Queue",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.bold,fontSize: 15),)),
+                  InkWell(
+                    onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> MyQueueScreen()));
+                    },
+                    child: Container(
+                      height: 120,
+                      decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                              colors: [
+                                AppColors.primary,
+                                Color(0xFF00CCFF),
+                              ],
+                              begin: FractionalOffset(0.0, 1.0),
+                              end: FractionalOffset(1.0, 0.0),
+                              stops: [0.0, 1.1],
+                              tileMode: TileMode.clamp),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Center(child: const Text("My Queue",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.bold,fontSize: 15),)),
 
+                    ),
                   ),
 
 

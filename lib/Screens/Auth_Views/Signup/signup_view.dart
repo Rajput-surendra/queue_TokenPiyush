@@ -26,11 +26,15 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final nameController = TextEditingController();
+  final emailController = TextEditingController();
   final mobileController = TextEditingController();
   final addressController = TextEditingController();
   final cityController = TextEditingController();
+  final passController = TextEditingController();
+  final cPassController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  bool isVisible = false;
+  bool isVisible1 = false;
   String selectedOption = "Get Token";
   @override
   void initState() {
@@ -67,10 +71,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          SizedBox(height: 100,),
+                          SizedBox(height: 50,),
                           const Text("Sign Up", style: TextStyle(color: AppColors
                               .whit, fontWeight: FontWeight.bold, fontSize: 40),),
-                          const SizedBox(height: 80,),
+                          const SizedBox(height: 30,),
                           // Image.asset("assets/images/SIGN UP.png", height: 150,
                           //   width: 200,),
                           const SizedBox(height: 10,),
@@ -105,7 +109,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                           groupValue: selectedOption,
                                           activeColor: AppColors.whit,
                                           focusColor: AppColors.whit,
-
                                           onChanged: (value) {
                                             setState(() {
                                               selectedOption = value.toString();
@@ -160,28 +163,21 @@ class _SignupScreenState extends State<SignupScreen> {
                                                       Padding(
                                                         padding: const EdgeInsets.only(top: 2),
                                                         child: Container(
-
                                                             child: Padding(
                                                               padding: const EdgeInsets.only(top: 0),
                                                               child: Text(items.name.toString(),overflow:TextOverflow.ellipsis,style: const TextStyle(color:AppColors.subTxtClr),),
                                                             )),
-                                                      ),
-
-                                                    ],
-                                                  ),
-                                                );
-                                              })
-                                                  .toList(),
+                                                          ),
+                                                       ],
+                                                    ),
+                                                 );
+                                              }).toList(),
                                             ),
-
                                           ),
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-
+                                    const SizedBox(height: 15,),
                                     Container(
                                  width: double.maxFinite,
                                  height: 50,
@@ -205,6 +201,34 @@ class _SignupScreenState extends State<SignupScreen> {
                                               ),
                                             ),
                                      const SizedBox(
+                                      height: 15,
+                                    ),
+                                    Container(
+                                      width: double.maxFinite,
+                                      height: 50,
+                                      padding: const EdgeInsets.all(5.0),
+                                      decoration: CustomBoxDecoration.myCustomDecoration(),
+                                      child: TextFormField(
+                                        controller: emailController,
+                                         keyboardType: TextInputType.emailAddress,
+                                        decoration: const InputDecoration(
+                                            hintText: "Enter Email",
+                                            contentPadding: EdgeInsets.only(left: 10,bottom: 5),
+                                            border: InputBorder.none
+                                        ),
+                                        style: const TextStyle(fontSize: 14),
+                                        validator: (value){
+                                          if (value!.isEmpty) {
+                                            return 'Email is required';
+                                          }
+                                          if(!value.contains('@')){
+                                            return 'Invalid Email';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(
                                       height: 15,
                                     ),
                                     Container(
@@ -284,7 +308,85 @@ class _SignupScreenState extends State<SignupScreen> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 0,
+                                      height: 15,
+                                    ),
+
+                                    Container(
+                                      width: double.maxFinite,
+                                      height: 50,
+                                      padding: const EdgeInsets.all(5.0),
+                                      decoration: CustomBoxDecoration.myCustomDecoration(),
+                                      child: TextFormField(
+                                        obscureText: isVisible1 ? false : true,
+                                        controller: passController,
+                                        decoration:  InputDecoration(
+                                            hintText: "Enter Password",
+                                            contentPadding: EdgeInsets.only(left: 10,top: 8),
+                                            border: InputBorder.none,
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                isVisible1 ? isVisible1 = false : isVisible1 = true;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              isVisible1
+                                                  ? Icons.remove_red_eye
+                                                  : Icons.visibility_off,
+                                              color:  AppColors.primary,
+                                            ),
+                                          ),
+                                        ),
+                                        style: const TextStyle(fontSize: 14),
+                                        validator: (val) {
+                                          if (val!.isEmpty) {
+                                            return "Password cannot be empty";
+                                          } else if (val.length < 2) {
+                                            return "Please enter must 2 digit";
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+
+                                    Container(
+                                      width: double.maxFinite,
+                                      height: 50,
+                                      padding: const EdgeInsets.all(5.0),
+                                      decoration: CustomBoxDecoration.myCustomDecoration(),
+                                      child: TextFormField(
+                                        obscureText: isVisible ? false : true,
+                                        controller: cPassController,
+                                        decoration:  InputDecoration(
+                                            hintText: "Enter Confirm Password",
+                                            contentPadding: EdgeInsets.only(left: 10,top: 8),
+                                            border: InputBorder.none,
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                isVisible ? isVisible = false : isVisible = true;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              isVisible
+                                                  ? Icons.remove_red_eye
+                                                  : Icons.visibility_off,
+                                              color:  AppColors.primary,
+                                            ),
+                                          ),
+                                        ),
+                                        style: const TextStyle(fontSize: 14),
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please confirm your password';
+                                          } else if (value != passController.text) {
+                                            return 'Passwords do not match';
+                                          }
+                                          return null;
+                                        },
+                                      ),
                                     ),
                                   ],
                                 )
@@ -317,6 +419,34 @@ class _SignupScreenState extends State<SignupScreen> {
                                        } else if (val.length < 2) {
                                          return "Please enter must 2 digit";
                                        }
+                                     },
+                                   ),
+                                 ),
+                                 const SizedBox(
+                                   height: 15,
+                                 ),
+                                 Container(
+                                   width: double.maxFinite,
+                                   height: 50,
+                                   padding: const EdgeInsets.all(5.0),
+                                   decoration: CustomBoxDecoration.myCustomDecoration(),
+                                   child: TextFormField(
+                                     controller: emailController,
+                                     keyboardType: TextInputType.emailAddress,
+                                     decoration: const InputDecoration(
+                                         hintText: "Enter Email",
+                                         contentPadding: EdgeInsets.only(left: 10,bottom: 5),
+                                         border: InputBorder.none
+                                     ),
+                                     style: const TextStyle(fontSize: 14),
+                                     validator: (value){
+                                       if (value!.isEmpty) {
+                                         return 'Email is required';
+                                       }
+                                       if(!value.contains('@')){
+                                         return 'Invalid Email';
+                                       }
+                                       return null;
                                      },
                                    ),
                                  ),
@@ -374,6 +504,87 @@ class _SignupScreenState extends State<SignupScreen> {
                                      },
                                    ),
                                  ),
+                                 const SizedBox(
+                                   height: 15,
+                                 ),
+
+                                 Container(
+                                   width: double.maxFinite,
+                                   height: 50,
+                                   padding: const EdgeInsets.all(5.0),
+                                   decoration: CustomBoxDecoration.myCustomDecoration(),
+                                   child: TextFormField(
+                                     obscureText: isVisible1 ? false : true,
+                                     controller: passController,
+                                     decoration:  InputDecoration(
+                                       hintText: "Enter Password",
+                                       contentPadding: EdgeInsets.only(left: 10,top: 8),
+                                       border: InputBorder.none,
+                                       suffixIcon: IconButton(
+                                         onPressed: () {
+                                           setState(() {
+                                             isVisible1 ? isVisible1 = false : isVisible1 = true;
+                                           });
+                                         },
+                                         icon: Icon(
+                                           isVisible1
+                                               ? Icons.remove_red_eye
+                                               : Icons.visibility_off,
+                                           color: AppColors.primary,
+                                         ),
+                                       ),
+                                     ),
+                                     style: const TextStyle(fontSize: 14),
+                                     validator: (val) {
+                                       if (val!.isEmpty) {
+                                         return "Password cannot be empty";
+                                       } else if (val.length < 2) {
+                                         return "Please enter must 2 digit";
+                                       }
+                                     },
+                                   ),
+                                 ),
+                                 const SizedBox(
+                                   height: 15,
+                                 ),
+
+                                 Container(
+                                   width: double.maxFinite,
+                                   height: 50,
+                                   padding: const EdgeInsets.all(5.0),
+                                   decoration: CustomBoxDecoration.myCustomDecoration(),
+                                   child: TextFormField(
+                                     obscureText: isVisible ? false : true,
+                                     controller: cPassController,
+                                     decoration:  InputDecoration(
+                                       hintText: "Enter Confirm Password",
+                                       contentPadding: EdgeInsets.only(left: 10,top: 8),
+                                       border: InputBorder.none,
+                                       suffixIcon: IconButton(
+                                         onPressed: () {
+                                           setState(() {
+                                             isVisible ? isVisible = false : isVisible = true;
+                                           });
+                                         },
+                                         icon: Icon(
+                                           isVisible
+                                               ? Icons.remove_red_eye
+                                               : Icons.visibility_off,
+                                           color:  AppColors.primary,
+                                         ),
+                                       ),
+                                     ),
+                                     style: const TextStyle(fontSize: 14),
+                                     validator: (value) {
+                                       if (value == null || value.isEmpty) {
+                                         return 'Please confirm your password';
+                                       } else if (value != passController.text) {
+                                         return 'Passwords do not match';
+                                       }
+                                       return null;
+                                     },
+                                   ),
+                                 ),
                                ],
                              ),
                            ),
@@ -388,9 +599,11 @@ class _SignupScreenState extends State<SignupScreen> {
 
                                     controller.registerUser(
                                     mobile: mobileController.text,
-                                    name: nameController.text,
+                                     name: nameController.text,
+                                     email: emailController.text,
                                       address: "",
                                       city:cityController.text,
+                                      password:passController.text,
                                       catId: "",
                                       selected: false,
                                     );
@@ -398,6 +611,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                     controller.registerUser(
                                       mobile: mobileController.text,
                                       name: nameController.text,
+                                      email: emailController.text,
+                                      password:passController.text,
                                       address: addressController.text,
                                       city: cityController.text,
                                       catId: catId.toString(),

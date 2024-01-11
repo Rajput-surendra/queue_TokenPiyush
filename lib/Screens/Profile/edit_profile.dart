@@ -30,6 +30,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // TODO: implement initState
     nameController.text = widget.getProfileModel?.profile?.userName ?? "" ;
     mobileController.text = widget.getProfileModel?.profile?.mobile ?? "" ;
+    emailController.text = widget.getProfileModel?.profile?.email ?? "" ;
     cityController.text = widget.getProfileModel?.profile?.city ?? "" ;
     image = widget.getProfileModel?.profile?.image  ?? '';
     super.initState();
@@ -48,6 +49,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   File? imageFile;
   TextEditingController nameController = TextEditingController();
   TextEditingController cityController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
 
   Future<bool> showExitPopup1() async {
@@ -234,21 +236,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
               ),
-              Container(
-                height: 60,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    keyboardType: TextInputType.name,
-                    controller: cityController,
-                    decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(top: 5,left: 10),
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter city'),
 
-                  ),
-                ),
-              ),
               Container(
                 height: 60,
                 child: Padding(
@@ -261,6 +249,36 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         contentPadding: EdgeInsets.only(top: 5,left: 10),
                         border: OutlineInputBorder(),
                         hintText: 'Enter mobile'),
+
+                  ),
+                ),
+              ),
+              Container(
+                height: 60,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.name,
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(top: 5,left: 10),
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter email'),
+
+                  ),
+                ),
+              ),
+              Container(
+                height: 60,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.name,
+                    controller: cityController,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(top: 5,left: 10),
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter city'),
 
                   ),
                 ),
@@ -294,6 +312,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     request.fields.addAll({
       'user_name':nameController.text,
       'city':cityController.text,
+      'email':emailController.text,
       'user_id':userId.toString()
     });
     print('____request.fields______${request.fields}_________');

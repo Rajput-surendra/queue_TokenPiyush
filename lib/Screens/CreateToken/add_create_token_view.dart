@@ -366,81 +366,6 @@ class _AddCreateTokenScreenState extends State<AddCreateTokenScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text("To Time",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
-                              const SizedBox(height: 5,),
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(),
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: TextFormField(
-
-                                  readOnly: true,
-                                  onTap: () async {
-                                    TimeOfDay? pickedTime = await showTimePicker(
-                                      initialTime: TimeOfDay.now(),
-                                      context: context,
-                                    );
-
-                                    if (pickedTime != null) {
-                                      print(pickedTime
-                                          .format(context)); // Output: 10:51 PM
-                                      DateTime parsedTime = DateFormat.jm().parse(
-                                          pickedTime.format(context).toString());
-                                      print(
-                                          parsedTime); // Output: 1970-01-01 22:53:00.000
-                                      String formattedTime =
-                                      DateFormat('hh:mm a').format(parsedTime);
-                                      print(formattedTime); // Output: 14:59:00
-                                      starTimeC.text = formattedTime;
-                                    } else {
-                                      print("Time is not selected");
-                                    }
-                                  },
-                                  controller: starTimeC,
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 10,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ],
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    fillColor: AppColors.whit,
-                                    filled: true,
-                                    hintText: "To Time",
-                                    counterText: '',
-                                    labelStyle: TextStyle(color: Colors.black87),
-                                    // prefixIcon: IconButton(
-                                    //   onPressed: null,
-                                    //   icon: Icon(
-                                    //     Icons.call,
-                                    //     color: MyColorName.primaryDark,
-                                    //   ),
-                                    // ),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: AppColors.primary,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: AppColors.secondary,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 10,),
-                        // morningShift(),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
                               const Text("From Time",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                               const SizedBox(height: 5,),
                               Container(
@@ -457,16 +382,28 @@ class _AddCreateTokenScreenState extends State<AddCreateTokenScreen> {
                                     );
 
                                     if (pickedTime != null) {
-                                      print(pickedTime
-                                          .format(context)); // Output: 10:51 PM
-                                      DateTime parsedTime = DateFormat.jm().parse(
-                                          pickedTime.format(context).toString());
-                                      print(
-                                          parsedTime); // Output: 1970-01-01 22:53:00.000
-                                      String formattedTime =
-                                      DateFormat('hh:mm a').format(parsedTime);
-                                      print(formattedTime); // Output: 14:59:00
+                                      print(pickedTime.format(context)); // Output: 10:51 PM
+
+                                      // Construct a DateTime object with today's date and the picked time
+                                      DateTime currentTime = DateTime.now();
+                                      DateTime combinedDateTime = DateTime(
+                                        currentTime.year,
+                                        currentTime.month,
+                                        currentTime.day,
+                                        pickedTime.hour,
+                                        pickedTime.minute,
+                                      );
+
+                                      print(combinedDateTime); // Output: 2024-01-11 22:53:00.000
+
+                                      // Format the DateTime object as per your requirement
+                                      String formattedTime = DateFormat('hh:mm a').format(combinedDateTime);
+                                      print(formattedTime); // Output: 10:53 PM
+
                                       endTimeC.text = formattedTime;
+                                      setState(() {
+                                        // Update the UI or perform any other necessary actions
+                                      });
                                     } else {
                                       print("Time is not selected");
                                     }
@@ -509,6 +446,100 @@ class _AddCreateTokenScreenState extends State<AddCreateTokenScreen> {
                             ],
                           ),
                         ),
+                        SizedBox(width: 10,),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text("To Time",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                              const SizedBox(height: 5,),
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: TextFormField(
+
+                                  readOnly: true,
+                                  onTap: () async {
+                                    TimeOfDay? pickedTime = await showTimePicker(
+                                      initialTime: TimeOfDay.now(),
+                                      context: context,
+                                    );
+
+                                    if (pickedTime != null) {
+                                      print(pickedTime.format(context)); // Output: 10:51 PM
+
+                                      // Construct a DateTime object with today's date and the picked time
+                                      DateTime currentTime = DateTime.now();
+                                      DateTime combinedDateTime = DateTime(
+                                        currentTime.year,
+                                        currentTime.month,
+                                        currentTime.day,
+                                        pickedTime.hour,
+                                        pickedTime.minute,
+                                      );
+
+                                      print(combinedDateTime); // Output: 2024-01-11 22:53:00.000
+
+                                      // Format the DateTime object as per your requirement
+                                      String formattedTime = DateFormat('hh:mm a').format(combinedDateTime);
+                                      print(formattedTime); // Output: 10:53 PM
+
+                                      starTimeC.text = formattedTime;
+                                      setState(() {
+                                        // Update the UI or perform any other necessary actions
+                                      });
+                                    } else {
+                                      print("Time is not selected");
+                                    }
+                                  },
+
+                                  controller: starTimeC,
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 10,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    fillColor: AppColors.whit,
+                                    filled: true,
+                                    hintText: "To Time",
+                                    counterText: '',
+                                    labelStyle: TextStyle(color: Colors.black87),
+                                    // prefixIcon: IconButton(
+                                    //   onPressed: null,
+                                    //   icon: Icon(
+                                    //     Icons.call,
+                                    //     color: MyColorName.primaryDark,
+                                    //   ),
+                                    // ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: AppColors.primary,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: AppColors.secondary,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+
+
+
+
+                        // morningShift(),
+
 
                       ],
                     ),
