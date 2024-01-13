@@ -1,10 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
+
 
 import 'package:booknplay/Services/api_services/apiConstants.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart'as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Models/HomeModel/get_token_details_model.dart';
 import '../../Utils/Colors.dart';
@@ -21,7 +27,20 @@ class _QueueDetailsState extends State<QueueDetails> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getUrl();
     getTokenDetailsApi();
+  }
+  late final Uri _url;
+  getUrl(){
+    _url = Uri.parse('https://developmentalphawizz.com/queue_token/Apicontroller/download_bookings/${widget.tokenTd}');
+    print('____Som___fff___${_url}_________');
+
+  }
+
+  Future<void> _launchUrl() async {
+    if (await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -34,6 +53,7 @@ class _QueueDetailsState extends State<QueueDetails> {
               Navigator.pop(context);
             },
             child: const Icon(Icons.arrow_back)),
+
         automaticallyImplyLeading: false,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -42,11 +62,24 @@ class _QueueDetailsState extends State<QueueDetails> {
           ),
         ),
         toolbarHeight: 60,
-        centerTitle: true,
-        title: const Text(
-          "Queue Booking Details",
-          style: TextStyle(fontSize: 17),
+        // centerTitle: true,
+        title:  Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Queue Booking Details",
+              style: TextStyle(fontSize: 17),
+            ),
+            InkWell(
+              onTap: () async {
+              await  _launchUrl();
+              },
+                child: Icon(Icons.download))
+          ],
         ),
+
+
+
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -59,7 +92,10 @@ class _QueueDetailsState extends State<QueueDetails> {
                 colors: <Color>[AppColors.primary, AppColors.secondary]),
           ),
         ),
+
       ),
+
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -70,105 +106,273 @@ class _QueueDetailsState extends State<QueueDetails> {
                 shrinkWrap: true,
                 itemCount:getTokenDetailsModel?.data?.length  ?? 0,
                   itemBuilder: (c,i){
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Icon(Icons.person),
-                                    Text("${getTokenDetailsModel?.data?[i].name}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.person),
+                                        SizedBox(width: 2,),
+                                        Text("${getTokenDetailsModel?.data?[i].name}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                      ],
+                                    ),
+                                    SizedBox(height: 5,),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.call,size:22),
+                                        Text("${getTokenDetailsModel?.data?[i].mobile}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                      ],
+                                    ),
+                                    SizedBox(height: 5,),
+                                    Row(children: [
+                                      Icon(Icons.location_on_outlined),
+                                      Text("${getTokenDetailsModel?.data?[i].city}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
+                                    ],
+                                    ),
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    Icon(Icons.call),
-                                    Text("${getTokenDetailsModel?.data?[i].mobile}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(Icons.location_on_outlined),
-                                    Text("${getTokenDetailsModel?.data?[i].city}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
-                                  ],
-                                ),
-                                SizedBox(height: 5,),
 
-                              ],
-                            ),
+                              SizedBox(height: 5,),
+                               Row(
+                                 children: [
+                                   Padding(
+                                     padding: const EdgeInsets.only(right: 10),
+                                     child: Column(
+                                       crossAxisAlignment: CrossAxisAlignment.end,
+                                       children: [
+                                         Container(
+                                           height: 30,
+                                           width: 30,
+                                           decoration: BoxDecoration(
+                                               color: AppColors.primary,
+                                               borderRadius: BorderRadius.circular(50)
+                                           ),
+                                           child: Center(child: Text("${getTokenDetailsModel?.data?[i].tokenNumber}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)),
+                                         ),
+                                         SizedBox(height: 10,),
+                                         getTokenDetailsModel?.data?[i].isFirst == 1 ?InkWell(
 
-                             Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                       color: AppColors.primary,
-                                   borderRadius: BorderRadius.circular(50)
-                                      ),
-                                    child: Center(child: Text("${getTokenDetailsModel?.data?[i].tokenNumber}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  getTokenDetailsModel?.data?[i].status == "0"?InkWell(
-                                    onTap: (){
-                                      getStatusApi(getTokenDetailsModel?.data?[i].id);
-                                    },
-                                    child: Container(
-                                      height: 30,
-                                      width: 80,
-                                      decoration: BoxDecoration(
-                                          color: Colors.yellow,
-                                          borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: const Center(child:Text("Next",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500))
-                                      ),
-                                    ),
-                                  ):getTokenDetailsModel?.data?[i].status == "1" ?InkWell(
-                                    onTap: (){
+                                           onTap: (){
+                                             showDialog(
+                                               context: context,
+                                               builder: (context) {
+                                                 return Container(
+                                                   height: 100,
+                                                   width: 150,
+                                                   child: AlertDialog(
 
-                                    },
-                                    child: Container(
-                                      height: 30,
-                                      width: 80,
-                                      decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: const Center(child:Text("Complete",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500))
-                                      ),
-                                    ),
-                                  ) :InkWell(
-                                    onTap: (){
+                                                     title: Text("Next Booking Confirmation",style: TextStyle(fontSize: 15),),
+                                                     content: Text("Are you sure you want to complete this booking?"),
 
-                                    },
-                                    child: Container(
-                                      height: 30,
-                                      width: 80,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.primary,
-                                          borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: const Center(child:Text("Next",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500))
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )
-                          ],)
-                      ],
+                                                     actions: <Widget>[
+                                                       // Text(""),
+                                                       Row(
+                                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                         children: [
+                                                           TextButton(
+                                                             onPressed: () {
+                                                               Navigator.of(context).pop(false); // Cancel exit
+                                                             },
+                                                             child: Text("NO"),
+                                                           ),
+                                                           TextButton(
+                                                             onPressed: () {
+                                                               getStatusApi(getTokenDetailsModel?.data?[i].id);
+                                                               Navigator.of(context).pop(false); // C
+                                                             },
+                                                             child: Text("Yes"),
+                                                           ),
+                                                         ],
+                                                       )
+                                                     ],
+                                                   ),
+                                                 );
+                                               },
+                                             );
+                                           },
+
+                                           child: Container(
+                                             height: 30,
+                                             width: 80,
+                                             decoration: BoxDecoration(
+                                                 color: Colors.yellow,
+                                                 borderRadius: BorderRadius.circular(10)
+                                             ),
+                                             child: const Center(child:Text("Next",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500))
+                                             ),
+                                           ),
+                                         ):InkWell(
+                                           child: Container(
+                                             height: 30,
+                                             width: 80,
+                                             decoration: BoxDecoration(
+                                                 color: AppColors.secondary,
+                                                 borderRadius: BorderRadius.circular(10)
+                                             ),
+                                             child: const Center(child:Text("Upcoming",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500))
+                                             ),
+                                           ),
+                                         ),
+                                         //     getTokenDetailsModel?.data?[i].status == "1" ?InkWell(
+                                         //   onTap: (){
+                                         //
+                                         //   },
+                                         //   child: Container(
+                                         //     height: 30,
+                                         //     width: 80,
+                                         //     decoration: BoxDecoration(
+                                         //         color: Colors.green,
+                                         //         borderRadius: BorderRadius.circular(10)
+                                         //     ),
+                                         //     child: const Center(child:Text("Complete",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500))
+                                         //     ),
+                                         //   ),
+                                         // )
+
+                                       ],
+                                     ),
+                                   )
+                                 ],
+                               )
+
+                            ],),
+
+                        ],
+                      ),
                     ),
                   ),
                 );
               }),
+            ),
+            Container(
+              child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount:getTokenDetailsModel?.completeBookings?.length?? 0,
+                  itemBuilder: (c,i){
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(Icons.person),
+                                          SizedBox(width: 2,),
+                                          Text("${getTokenDetailsModel?.completeBookings?[i].name}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                        ],
+                                      ),
+                                      SizedBox(height: 5,),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.call,size:22),
+                                          Text("${getTokenDetailsModel?.completeBookings?[i].mobile}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                        ],
+                                      ),
+                                      SizedBox(height: 5,),
+                                      Row(children: [
+                                        Icon(Icons.location_on_outlined),
+                                        Text("${getTokenDetailsModel?.completeBookings?[i].city}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
+                                      ],
+                                      ),
+                                    ],
+                                  ),
+
+                                  SizedBox(height: 5,),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                              height: 30,
+                                              width: 30,
+                                              decoration: BoxDecoration(
+                                                  color: AppColors.primary,
+                                                  borderRadius: BorderRadius.circular(50)
+                                              ),
+                                              child: Center(child: Text("${getTokenDetailsModel?.completeBookings?[i].tokenNumber}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)),
+                                            ),
+                                            SizedBox(height: 10,),
+                                            getTokenDetailsModel?.completeBookings?[i].status == "0"?InkWell(
+                                              onTap: (){
+                                               // getStatusApi(getTokenDetailsModel?.completeBookings?[i].id);
+                                              },
+                                              child: Container(
+                                                height: 30,
+                                                width: 80,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.yellow,
+                                                    borderRadius: BorderRadius.circular(10)
+                                                ),
+                                                child: const Center(child:Text("Next",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500))
+                                                ),
+                                              ),
+                                            ):getTokenDetailsModel?.completeBookings?[i].status == "1" ?InkWell(
+                                              onTap: (){
+
+                                              },
+                                              child: Container(
+                                                height: 30,
+                                                width: 80,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.green,
+                                                    borderRadius: BorderRadius.circular(10)
+                                                ),
+                                                child: const Center(child:Text("Complete",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500))
+                                                ),
+                                              ),
+                                            ) :InkWell(
+                                              onTap: (){
+
+                                              },
+                                              child: Container(
+                                                height: 30,
+                                                width: 80,
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.primary,
+                                                    borderRadius: BorderRadius.circular(10)
+                                                ),
+                                                child: const Center(child:Text("Next",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500))
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+
+                                ],),
+
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
             )
           ],
         ),

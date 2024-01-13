@@ -40,11 +40,12 @@ class TodaysTokens {
   String? date;
   String? createdAt;
   String? availableToken;
-  int? currentToken;
-  int? nextToken;
+  dynamic currentToken;
+  dynamic nextToken;
   String? companyName;
   String? city;
   String? uniqueId;
+  String? expactedTime;
 
   TodaysTokens(
       {this.id,
@@ -62,7 +63,8 @@ class TodaysTokens {
         this.nextToken,
         this.companyName,
         this.city,
-        this.uniqueId});
+        this.uniqueId,
+        this.expactedTime});
 
   TodaysTokens.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -81,6 +83,7 @@ class TodaysTokens {
     companyName = json['company_name'];
     city = json['city'];
     uniqueId = json['unique_id'];
+    expactedTime = json['expacted_time'];
   }
 
   Map<String, dynamic> toJson() {
@@ -101,6 +104,7 @@ class TodaysTokens {
     data['company_name'] = this.companyName;
     data['city'] = this.city;
     data['unique_id'] = this.uniqueId;
+    data['expacted_time'] = this.expactedTime;
     return data;
   }
 }

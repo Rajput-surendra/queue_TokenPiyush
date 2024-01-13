@@ -91,7 +91,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
              getTokenApi();
             });
           },
-          child:  getTokenModel?.todayTokens == null? Center(child: Center(child: const CircularProgressIndicator())): getTokenModel!.todayTokens!.isEmpty ? Text("No Tokens"): ListView.builder(
+          child:  /*getTokenModel?.todayTokens == null? Center(child: Center(child: const CircularProgressIndicator())):*/ getTokenModel?.todayTokens == null ?Center(child: Text("No Tokens")): ListView.builder(
               itemCount: 1,
               itemBuilder: (context,i){
                 return  SingleChildScrollView(
@@ -107,7 +107,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                             height: MediaQuery.of(context).size.width/1.1,
                             child: getTokenModel?.todayTokens?.isEmpty ?? false ? Center(child: const Text("No Todays Tokens")):ListView.builder(
                                 itemCount: getTokenModel?.todayTokens?.length ?? 0,
-                                reverse: true,
+
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context,i){
                                   return  InkWell(
@@ -147,7 +147,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                                 children: [
 
                                                   Text("From Time:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  Text(" ${getTokenModel?.todayTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
 
@@ -156,7 +156,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text("To Time:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  Text(" ${getTokenModel?.todayTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
                                               SizedBox(height: 5,),
@@ -231,7 +231,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                                 children: [
 
                                                   Text("From Time:"),
-                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
                                               SizedBox(height: 5,),
@@ -239,7 +239,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text("To Time:"),
-                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
                                               SizedBox(height: 5,),

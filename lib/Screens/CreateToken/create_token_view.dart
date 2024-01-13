@@ -96,7 +96,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
              getTokenApi();
             });
           },
-          child: getTokenModel?.todayTokens == null? Center(child: Center(child: const CircularProgressIndicator())): getTokenModel!.todayTokens!.isEmpty ? Text("No Tokens"):  ListView.builder(
+          child: /*getTokenModel?.todayTokens?.first.fromTime == null? Center(child: Center(child: const CircularProgressIndicator())):*/ getTokenModel?.todayTokens == null ?Center(child: Text("No Tokens")):  ListView.builder(
               itemCount: 1,
               itemBuilder: (context,i){
                 return  SingleChildScrollView(

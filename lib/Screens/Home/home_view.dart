@@ -207,12 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   fTime: getCounterModel!.todaysTokens![index].fromTime,
                   toTime: getCounterModel!.todaysTokens![index].toTime,
                   cToken: getCounterModel!.todaysTokens![index].currentToken,
-                exTime: getCounterModel!.todaysTokens![index].toTime,)));
+                exTime: getCounterModel!.todaysTokens![index].expactedTime,)));
               },
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Container(
-                    height: 110,
+                    height: 115,
 
                     decoration: const BoxDecoration(
                         image: DecorationImage(
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: const EdgeInsets.only(left: 10,top: 8),
                               child: Row(
                                 children: [
-                                  const Text("Hospital Name:",style: TextStyle(color: AppColors.whit,fontSize: 12),),
+                                  const Text("Counter Name:",style: TextStyle(color: AppColors.whit,fontSize: 12),),
                                   const SizedBox(width: 2,),
                                   Row(
                                     children: [
@@ -304,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                    children: [
                                      const Text("Expected Time : ",style: TextStyle(color: AppColors.fntClr,fontSize: 12),),
                                      const SizedBox(width: 2,),
-                                     Text("${getCounterModel!.todaysTokens![index].fromTime}",style: const TextStyle(color: AppColors.fntClr,fontSize: 12,fontWeight: FontWeight.bold),),
+                                     Text("${getCounterModel!.todaysTokens![index].expactedTime}",style: const TextStyle(color: AppColors.fntClr,fontSize: 12,fontWeight: FontWeight.bold),),
                                    ],
                                  ),
                                ],
