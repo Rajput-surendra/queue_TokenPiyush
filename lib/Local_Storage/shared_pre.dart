@@ -29,6 +29,8 @@ class   SharedPre {
     return storage.write(key, value);
   }
 
+
+
   static Future<String> getStringValue(String key) async {
     final storage = GetStorage();
     return storage.read<String>(key) ?? '';

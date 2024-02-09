@@ -90,13 +90,16 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
             ),
           ),
         ),
-        body:   RefreshIndicator(
+        body: RefreshIndicator(
           onRefresh: () {
             return Future.delayed(const Duration(seconds: 2),(){
              getTokenApi();
             });
           },
-          child: /*getTokenModel?.todayTokens?.first.fromTime == null? Center(child: Center(child: const CircularProgressIndicator())):*/ getTokenModel?.todayTokens == null ?Center(child: Text("No Tokens")):  ListView.builder(
+          child:
+          ///*getTokenModel?.todayTokens?.first.fromTime == null? Center(child: Center(child: const CircularProgressIndicator())):*/ getTokenModel?.todayTokens == null ?Center(child: Text("No Tokens")):
+
+               ListView.builder(
               itemCount: 1,
               itemBuilder: (context,i){
                 return  SingleChildScrollView(
@@ -108,141 +111,140 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                           SizedBox(height: 10,),
                           getTokenModel?.todayTokens == null ?? false ? SizedBox.shrink() : const Text("Today's Token", style: TextStyle(color: AppColors.fntClr, fontSize: 18, fontWeight: FontWeight.bold)),
                           SizedBox(height: 10,),
-                          Container(
-                            height: MediaQuery.of(context).size.width/1.1,
-                            child: getTokenModel?.todayTokens?.isEmpty ?? false ? Center(child: const Text("No Todays Tokens")):ListView.builder(
-                                itemCount: getTokenModel?.todayTokens?.length ?? 0,
-                                scrollDirection: Axis.vertical,
-                                itemBuilder: (context,i){
-                                  return  InkWell(
-                                      onTap: (){
-                                      //  Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateTokenDetails(tokenTd: getTokenModel?.todayTokens?[i].id,)));
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width/1.1,
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("Name:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].userName}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                          ListView.builder(
+                              itemCount: getTokenModel?.todayTokens?.length ?? 0,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context,i){
+                                return  InkWell(
+                                    onTap: (){
+                                    //  Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateTokenDetails(tokenTd: getTokenModel?.todayTokens?[i].id,)));
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width/1.1,
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(height: 5,),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("Name:"),
+                                                Text(" ${getTokenModel?.todayTokens?[i].userName}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
 
-                                                ],
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("Counter Id:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].uniqueId}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                              ],
+                                            ),
+                                            SizedBox(height: 5,),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("Counter Id:"),
+                                                Text(" ${getTokenModel?.todayTokens?[i].uniqueId}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
 
-                                                ],
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
+                                              ],
+                                            ),
+                                            SizedBox(height: 5,),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
 
-                                                  Text("From Time:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
-                                                ],
-                                              ),
+                                                Text("From:"),
+                                                Text(" ${getTokenModel?.todayTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                              ],
+                                            ),
 
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("To Time:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
-                                                ],
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("Token Time:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].timePerClient} minutes ",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
-                                                ],
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  InkWell(
-                                                    onTap: (){
-                                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> AddCreateTokenScreen(tokenId: getTokenModel?.todayTokens?[i].id,isUpdate: true))).then((value) => getTokenApi());
-                                                    },
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 80,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(10),
-
-                                                          color: AppColors.primary
-                                                      ),
-                                                      child: Center(child: Text("Update",style: TextStyle(color: AppColors.whit),)),
-                                                    ),
-                                                  ),
-                                                  InkWell(
-                                                    onTap: (){
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (context) => Dialog(
-                                                          child: ListView(
-                                                            padding: const EdgeInsets.symmetric(
-                                                              vertical: 10,
-                                                            ),
-                                                            shrinkWrap: true,
-                                                            children: ['Delete from Token']
-                                                                .map(
-                                                                  (e) => InkWell(
-                                                                onTap: () async {
-                                                                  deleteApi(getTokenModel?.todayTokens![i].id ?? "");
-                                                                  Navigator.of(context).pop();
-                                                                },
-                                                                child: Container(
-                                                                  padding: const EdgeInsets.symmetric(
-                                                                    vertical: 10,
-                                                                    horizontal: 10,
-                                                                  ),
-                                                                  child: Text(e),
-                                                                ),
-                                                              ),
-                                                            )
-                                                                .toList(),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 80,
-                                                      decoration: BoxDecoration(
+                                            SizedBox(height: 5,),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("To:"),
+                                                Text(" ${getTokenModel?.todayTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                              ],
+                                            ),
+                                            SizedBox(height: 5,),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("Token Time:"),
+                                                Text(" ${getTokenModel?.todayTokens?[i].timePerClient} minutes ",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                              ],
+                                            ),
+                                            SizedBox(height: 5,),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                InkWell(
+                                                  onTap: (){
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> AddCreateTokenScreen(tokenId: getTokenModel?.todayTokens?[i].id,isUpdate: true))).then((value) => getTokenApi());
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 80,
+                                                    decoration: BoxDecoration(
                                                         borderRadius: BorderRadius.circular(10),
 
-                                                        color: AppColors.red
-                                                      ),
-                                                      child: Center(child: Text("Delete",style: TextStyle(color: AppColors.whit),)),
+                                                        color: AppColors.primary
                                                     ),
+                                                    child: Center(child: Text("Update",style: TextStyle(color: AppColors.whit),)),
                                                   ),
-                                                ],
-                                              ),
-                                            ],
+                                                ),
+                                                InkWell(
+                                                  onTap: (){
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) => Dialog(
+                                                        child: ListView(
+                                                          padding: const EdgeInsets.symmetric(
+                                                            vertical: 10,
+                                                          ),
+                                                          shrinkWrap: true,
+                                                          children: ['Delete from Token']
+                                                              .map(
+                                                                (e) => InkWell(
+                                                              onTap: () async {
+                                                                deleteApi(getTokenModel?.todayTokens![i].id ?? "");
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              child: Container(
+                                                                padding: const EdgeInsets.symmetric(
+                                                                  vertical: 10,
+                                                                  horizontal: 10,
+                                                                ),
+                                                                child: Text(e),
+                                                              ),
+                                                            ),
+                                                          )
+                                                              .toList(),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 80,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(10),
 
-                                          ),
+                                                      color: AppColors.red
+                                                    ),
+                                                    child: Center(child: Text("Delete",style: TextStyle(color: AppColors.whit),)),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+
                                         ),
                                       ),
                                     ),
-                                  );
-                                }),
-                          ),
+                                  ),
+                                );
+                              }),
                           SizedBox(height: 20,),
                           getTokenModel?.tomorrowTokens == null ?? false ? SizedBox.shrink() :  const Text(
                             "Tomorrow Token",
@@ -253,8 +255,10 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                           ),
                           SizedBox(height: 10,),
                           Container(
-                            width: MediaQuery.of(context).size.width/1.1,
-                            child:getTokenModel?.tomorrowTokens?.isEmpty ?? false ? Center(child: const Text("No Tomorrow Tokens")): ListView.builder(
+                            width: MediaQuery.of(context).size.width/1.0,
+                            child:
+                           // getTokenModel?.tomorrowTokens?.isEmpty ?? false ? Center(child: const Text("No Tomorrow Tokens")):
+                            ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
                                 reverse: true,
@@ -266,7 +270,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                                      // Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateTokenDetails(tokenTd: getTokenModel?.tomorrowTokens?[i].id,)));
                                     },
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width/1.2,
+                                     // width: MediaQuery.of(context).size.width/1.1,
                                       child: Card(
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                         child: Padding(
@@ -295,16 +299,16 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
 
-                                                  Text("From Time:"),
-                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  Text("From:"),
+                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
                                               SizedBox(height: 5,),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("To Time:"),
-                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  Text("To:"),
+                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
                                               SizedBox(height: 5,),
@@ -406,6 +410,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
     request.fields.addAll({
       'token_id':tokenId.toString()
     });
+    print('____Som______${request.fields}_________');
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
@@ -427,7 +432,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
     var headers = {
       'Cookie': 'ci_session=052f7198d39c07d7c57fb2fed6a242b3b8aaa2de'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('$baseUrl1/Apicontroller/counter_tokens'));
+      var request = http.MultipartRequest('POST', Uri.parse('$baseUrl1/Apicontroller/counter_tokens'));
     request.fields.addAll({
       'user_id':userId.toString()
     });

@@ -55,21 +55,29 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(const Duration(seconds: 1), () async {
       final isLogin = await SharedPre.getStringValue('userId');
       final role = await SharedPre.getStringValue('userRole');
+        print('____Som___role___${role}_________');
+      print('____Som___role___${isLogin}_________');
       if (isLogin != null && isLogin != '') {
+
         // Navigator.push(MaterialPageRoute(builder: (context)=>SearchScreen()));
          if(role == "user"){
            Get.offAllNamed(search);
-         }else{
-           if(role == "user"){
-             Get.offAllNamed(bottomBar);
-           }else{
-             Get.offAllNamed(bottomBar1);
-           }
 
          }
+         else if(role == "counter"){
+           Get.offAllNamed(bottomBar1);
+         }
 
-        //Get.offAllNamed(bottomBar);
-      } else {
+         // else{
+         //   if(role == "counter"){
+         //     Get.offAllNamed(bottomBar);
+         //   }
+         //   Get.offAllNamed(search);
+         // }
+
+
+     }
+      else{
         Get.offAllNamed(loginScreen);
       }
     });

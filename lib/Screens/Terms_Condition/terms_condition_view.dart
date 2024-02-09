@@ -6,6 +6,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart'as http;
 
 import '../../Local_Storage/shared_pre.dart';
+import '../../Services/api_services/apiConstants.dart';
 import '../../Utils/Colors.dart';
 
 class TermsAndConditionScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
   initState() {
     // TODO: implement initState
     super.initState();
-    getTermsApi();
+    getRole();
 
   }
 
@@ -65,25 +66,33 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
   }
 
   String? termsAndCondition;
+  String? role;
+  getRole() async {
+    role = await SharedPre.getStringValue('userRole');
+    print('____Som______${role}_________');
+    getTermsApi();
+  }
 
   getTermsApi() async {
     var headers = {
-      'Content-Type': 'application/json',
-      'Cookie': 'ci_session=8144c3169cc147b811c9d62284d8e56afb722df6'
+      'Cookie': 'ci_session=98d543428bf50a5fd2e5cfce63123b77fd556560'
     };
-    var request = http.Request('POST', Uri.parse('https://developmentalphawizz.com/queue_token/Apicontroller/apiGetContent'));
-    request.body = json.encode({
-      "content": "privacy_policy"
+    var request = http.MultipartRequest('POST', Uri.parse('${baseUrl1}/Apicontroller/terms'));
+    request.fields.addAll({
+      'type':role.toString()
     });
+   print('____Som________Som________${request.fields}_________');
     request.headers.addAll(headers);
+
     http.StreamedResponse response = await request.send();
+
     if (response.statusCode == 200) {
       final result =  await response.stream.bytesToString();
       final jsonResponse = json.decode(result);
       setState(() {
-        termsAndCondition = jsonResponse['content'][0]['name'];
+        termsAndCondition = jsonResponse['data']['terms_condition'];
+        print('______termsAndCondition____${termsAndCondition}_________');
       });
-
     }
     else {
       print(response.reasonPhrase);

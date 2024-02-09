@@ -270,7 +270,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     title:isLodding ? 'Please wait...': 'Get Token',
                     onTap: () {
                       if(cityController.text.isEmpty && nameController.text.isEmpty && counterIdController.text.isEmpty && catId == null ){
-                        Fluttertoast.showToast(msg: "Please ablest one select",backgroundColor:AppColors.primary);
+                        Fluttertoast.showToast(msg: "Please at least one select",backgroundColor:AppColors.primary);
                       }else if (selectedValue == null){
                         Fluttertoast.showToast(msg: "Please Select days",backgroundColor:AppColors.primary);
                       }
@@ -322,12 +322,14 @@ class _SearchScreenState extends State<SearchScreen> {
         dayId = selectedValue.toString();
         isLodding =  false;
       });
-
-     if(userRole == 'user'){
-       Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardScreen()));
-     }else{
-       Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardCounterScreen()));
-     }
+    Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardScreen()));
+    //  if(userRole == 'user'){
+    // print('____Som______${userRole}_________');
+    //    Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardScreen()));
+    //  }else{
+    //    print('____Som_______________');
+    //    Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardCounterScreen()));
+    //  }
   }
   else {
     setState(() {
@@ -341,6 +343,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   GetCatModel? getCatModel;
   Future<void> getCateApi() async {
+    // await SharedPre.setValue(true)
     apiBaseHelper.postAPICall2(getCatAPI).then((getData) {
       getCatModel = GetCatModel.fromJson(getData);
      setState(() {});

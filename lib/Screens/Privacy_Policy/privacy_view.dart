@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../Local_Storage/shared_pre.dart';
 import '../../Services/api_services/apiConstants.dart';
 import '../../Services/api_services/apiStrings.dart';
 import '../../Utils/Colors.dart';
@@ -22,10 +23,15 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   initState() {
     // TODO: implement initState
     super.initState();
-    getPrivacy();
 
+    getRole();
   }
-
+  String? role;
+    getRole() async {
+       role = await SharedPre.getStringValue('userRole');
+      print('____Som______${role}_________');
+      getPrivacyCounter();
+    }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,30 +74,58 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
 
 
   String? privacyPolicy;
-  getPrivacy() async {
+  // getPrivacy() async {
+  //   var headers = {
+  //     'Content-Type': 'application/json',
+  //     'Cookie': 'ci_session=8144c3169cc147b811c9d62284d8e56afb722df6'
+  //   };
+  //   var request = http.Request('POST', Uri.parse('${baseUrl1}/Apicontroller/apiGetContent'));
+  //   request.body = json.encode({
+  //     "content": "privacy_policy"
+  //   });
+  //   request.headers.addAll(headers);
+  //
+  //   http.StreamedResponse response = await request.send();
+  //   if (response.statusCode == 200) {
+  //     final result =  await response.stream.bytesToString();
+  //     final jsonResponse = json.decode(result);
+  //     setState(() {
+  //       privacyPolicy = jsonResponse['content'][0]['name'];
+  //       print('______privacyPolicy____${privacyPolicy}_________');
+  //     });
+  //
+  //   }
+  //   else {
+  //     print(response.reasonPhrase);
+  //   }
+  //
+  // }
+
+  getPrivacyCounter() async {
     var headers = {
-      'Content-Type': 'application/json',
-      'Cookie': 'ci_session=8144c3169cc147b811c9d62284d8e56afb722df6'
+      'Cookie': 'ci_session=98d543428bf50a5fd2e5cfce63123b77fd556560'
     };
-    var request = http.Request('POST', Uri.parse('${baseUrl1}/Apicontroller/apiGetContent'));
-    request.body = json.encode({
-      "content": "privacy_policy"
+    var request = http.MultipartRequest('POST', Uri.parse('${baseUrl1}/Apicontroller/privacy'));
+    request.fields.addAll({
+      'type':role.toString()
     });
+
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
+
     if (response.statusCode == 200) {
       final result =  await response.stream.bytesToString();
       final jsonResponse = json.decode(result);
       setState(() {
-        privacyPolicy = jsonResponse['content'][0]['name'];
+        privacyPolicy = jsonResponse['data']['name'];
         print('______privacyPolicy____${privacyPolicy}_________');
       });
-
     }
     else {
-      print(response.reasonPhrase);
+    print(response.reasonPhrase);
     }
 
   }
+
 }

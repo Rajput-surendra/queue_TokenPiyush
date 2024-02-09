@@ -79,7 +79,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
         body: SingleChildScrollView(
             child:widget.isbool == true ? Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Center(child: const Text("6 Month Free Plan...")),
+              child: Center(child:  Image.asset("assets/images/sub.png")),
             ): Container(
           height: MediaQuery.of(context).size.height / 1.1,
           child:getSubscriptionModel == null ? const Center(child: CircularProgressIndicator(color: AppColors.secondary,)): ListView.builder(

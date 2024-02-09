@@ -46,8 +46,37 @@ class _AddCreateTokenScreenState extends State<AddCreateTokenScreen> {
   getUserId() async {
     userId = await SharedPre.getStringValue('userId');
     setState(() {});
+    getCatApi();
   }
 
+String? cat_Id;
+  getCatApi() async {
+    var headers = {
+      'Cookie': 'ci_session=55b4cc64e9d4b5f85e3ff465bbb04ff414900228'
+    };
+    var request = http.MultipartRequest('POST', Uri.parse('https://developmentalphawizz.com/queue_token/Apicontroller/get_counter_cat'));
+    request.fields.addAll({
+      'user_id':userId.toString()
+    });
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var result  = await response.stream.bytesToString();
+      var finalResult  = jsonDecode(result);
+      cat_Id= finalResult['data']['category'];
+      animalCat = getCatModel?.data?.firstWhere((item) => item.id == cat_Id.toString());
+      print('____Som__cat_Id____${cat_Id}_________');
+
+      print('____Som____ddd__${animalCat!.id}_________');
+      setState(() {
+
+      });
+    }
+    else {
+    print(response.reasonPhrase);
+    }
+
+  }
   UpdateTokenModel ? updateTokenModel;
   getUpdateApi() async {
     var headers = {
@@ -57,21 +86,21 @@ class _AddCreateTokenScreenState extends State<AddCreateTokenScreen> {
     request.fields.addAll({
       'token_id':widget.tokenId.toString()
     });
+    print('____Som___token_id___${request.fields}_________');
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       var result = await response.stream.bytesToString();
       var finalResult = UpdateTokenModel.fromJson(json.decode(result));
-      setState(() {
-        updateTokenModel = finalResult;
-        nameController.text =   updateTokenModel!.data![0].userName.toString();
-        timeController.text =   updateTokenModel!.data![0].timePerClient.toString();
-        animalCat = getCatModel?.data?.firstWhere((item) => item.id == updateTokenModel!.data![0].category.toString());
-        selectedValue =  items.firstWhere((e) => e==updateTokenModel!.data![0].type.toString());
-        starTimeC.text = updateTokenModel!.data![0].toTime.toString();
-        endTimeC.text = updateTokenModel!.data![0].fromTime.toString();
 
-      });
+      updateTokenModel = finalResult;
+      nameController.text = updateTokenModel!.data!.first.userName.toString();
+      timeController.text = updateTokenModel!.data![0].timePerClient.toString();
+      animalCat = getCatModel?.data?.firstWhere((item) => item.id == updateTokenModel!.data![0].category.toString());
+      selectedValue =  items.firstWhere((e) => e==updateTokenModel!.data![0].type.toString());
+      starTimeC.text = updateTokenModel!.data![0].toTime.toString();
+      endTimeC.text = updateTokenModel!.data![0].fromTime.toString();
+      setState(() {});
     }
     else {
       print(response.reasonPhrase);
@@ -87,7 +116,7 @@ class _AddCreateTokenScreenState extends State<AddCreateTokenScreen> {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl1/Apicontroller/update_token_data'));
     request.fields.addAll({
       'user_id':userId.toString(),
-      'category': catId.toString(),
+      'category': animalCat!.id.toString(),
       'time_per_client':timeController.text,
       'from_time':endTimeC.text,
       'to_time':starTimeC.text,
@@ -124,7 +153,7 @@ class _AddCreateTokenScreenState extends State<AddCreateTokenScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
          bottomSheet:AppButton1(
-           title: "Create",
+           title:widget.isUpdate ==true ? "Update": "Create",
            onTap: (){
              if(widget.isUpdate == true){
                updateApi();
@@ -148,7 +177,10 @@ class _AddCreateTokenScreenState extends State<AddCreateTokenScreen> {
           ),
           toolbarHeight: 60,
           centerTitle: true,
-          title: const Text(
+          title: widget.isUpdate == true ? Text(
+            "Update Queue",
+            style: TextStyle(fontSize: 17),
+          ):Text(
             "Create Queue",
             style: TextStyle(fontSize: 17),
           ),
@@ -561,6 +593,7 @@ class _AddCreateTokenScreenState extends State<AddCreateTokenScreen> {
     apiBaseHelper.postAPICall(getCatAPI, param).then((getData) {
       String msg = getData['message'];
       getCatModel = GetCatModel.fromJson(getData);
+
        setState(() {
          Fluttertoast.showToast(msg: msg);
        });
@@ -599,7 +632,7 @@ class _AddCreateTokenScreenState extends State<AddCreateTokenScreen> {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl1/Apicontroller/create_token'));
     request.fields.addAll({
       'user_id':userId.toString(),
-      'category': catId.toString(),
+      'category': animalCat!.id.toString(),
       'time_per_client':timeController.text,
       'from_time':endTimeC.text,
       'to_time':starTimeC.text,

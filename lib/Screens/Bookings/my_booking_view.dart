@@ -83,9 +83,28 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                Text("Counter Name:",style: TextStyle(color: AppColors.fntClr,fontSize: 12),),
+                                SizedBox(width: 2,),
+                                Text("${getTokenListModel!.data![index].counterName}",style: TextStyle(color: AppColors.fntClr,fontSize: 12,fontWeight: FontWeight.bold),),
+                              ],
+                            ),
+                            SizedBox(height: 5,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
                                 Text("Name:",style: TextStyle(color: AppColors.fntClr,fontSize: 12),),
                                 SizedBox(width: 2,),
                                 Text("${getTokenListModel!.data![index].name}",style: TextStyle(color: AppColors.fntClr,fontSize: 12,fontWeight: FontWeight.bold),),
+                              ],
+                            ),
+                            SizedBox(height: 5,),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Age:",style: TextStyle(color: AppColors.fntClr,fontSize: 12),),
+                                SizedBox(width: 2,),
+                                Text("${getTokenListModel!.data![index].age}",style: TextStyle(color: AppColors.fntClr,fontSize: 12,fontWeight: FontWeight.bold),),
                               ],
                             ),
                             SizedBox(height: 5,),
@@ -173,8 +192,6 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                         ),
                       )
                     )
-
-
                     // Container(
                     //     height: 120,
                     //     width: 280,

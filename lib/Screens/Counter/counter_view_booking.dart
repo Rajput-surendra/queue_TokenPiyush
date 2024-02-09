@@ -12,8 +12,8 @@ import 'package:http/http.dart'as http;
 
 import '../../Models/get_counter_model.dart';
 import '../../Utils/extentions.dart';
-class CounterScreen extends StatefulWidget {
-   CounterScreen({Key? key, this.isFrom,this.cId,this.tokenId,this.exTime,this.nextToken,this.aviToken,this.date,this.toTime,this.fTime,this.cToken}) : super(key: key);
+class CounterViewBookingScreen extends StatefulWidget {
+  CounterViewBookingScreen({Key? key, this.isFrom,this.cId,this.tokenId,this.exTime,this.nextToken,this.aviToken,this.date,this.toTime,this.fTime,this.cToken}) : super(key: key);
   final bool? isFrom;
   String? tokenId,cId,fTime,toTime,date;
    dynamic  cToken,exTime;
@@ -21,10 +21,10 @@ class CounterScreen extends StatefulWidget {
   // final GetCounterModel? getCounterModel;
 
   @override
-  State<CounterScreen> createState() => _CounterScreenState();
+  State<CounterViewBookingScreen> createState() => _CounterViewBookingScreenState();
 }
 
-class _CounterScreenState extends State<CounterScreen> {
+class _CounterViewBookingScreenState extends State<CounterViewBookingScreen> {
   String? catId;
   SignUpCat? animalCat;
   @override
@@ -49,7 +49,7 @@ class _CounterScreenState extends State<CounterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: AppButton1(
-        title: isLodder ? "Please wait....": "Get Token",
+        title: isLodder ? "Please wait....": "Booking",
         onTap: (){
           if(_formKey.currentState! .validate())
           addBookingApi();
@@ -69,7 +69,7 @@ class _CounterScreenState extends State<CounterScreen> {
             ),),
           toolbarHeight: 60,
           centerTitle: true,
-          title: Text("Booking Details ",style: TextStyle(fontSize: 17),),
+          title: Text("Booking",style: TextStyle(fontSize: 17),),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
               borderRadius:   BorderRadius.only(
@@ -90,58 +90,6 @@ class _CounterScreenState extends State<CounterScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                        Card(
-                          child: Column(
-                            children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                 Row(
-                                   children: [
-                                     Text("Time:"),
-                                     Row(
-                                       children: [
-                                         Text("${widget.fTime}",style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.fntClr)),
-                                         SizedBox(width: 5,),
-                                         Text("to ${widget.toTime}",style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.fntClr)),
-                                       ],
-                                     ),
-                                   ],
-                                 ),
-                                 Row(
-                                   children: [
-                                     Text("Date:"),
-                                     Text("${widget.date}",style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.fntClr),),
-                                   ],
-                                 )
-                                ],
-                              ),
-                            ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text("Current Avail Token:"),
-                                        Text("${widget.cToken}",style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.fntClr)),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text("Expected Time:"),
-                                        Text("${widget.exTime}",style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.fntClr),),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                     SizedBox(height: 20,),
                     Container(
                       width: double.maxFinite,
@@ -187,7 +135,7 @@ class _CounterScreenState extends State<CounterScreen> {
                         style: const TextStyle(fontSize: 14),
                         validator: (val) {
                           if (val!.isEmpty) {
-                             "Please enter age ";
+                            return "Please enter Age ";
                           }
                         },
                       ),
@@ -266,7 +214,7 @@ class _CounterScreenState extends State<CounterScreen> {
   };
   var request = http.MultipartRequest('POST', Uri.parse('$baseUrl1/Apicontroller/add_booking'));
   request.fields.addAll({
-    'counter_id':widget.cId.toString(),
+    'counter_id':userId.toString(),
     'token_id':widget.tokenId.toString(),
     'user_id':userId.toString(),
     'name':nameController.text,
@@ -274,7 +222,7 @@ class _CounterScreenState extends State<CounterScreen> {
     'city':cityController.text,
     'age':ageController.text,
   });
-  print('_____request.fields__Singh___${request.fields}_________');
+  print('_____request.fields_____${request.fields}_________');
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {

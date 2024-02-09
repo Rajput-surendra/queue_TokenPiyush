@@ -501,6 +501,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     TextButton(
                                       onPressed: () async{
                                         await SharedPre.clear('userId');
+                                        await SharedPre.clear('userRole');
                                         await Future.delayed(const Duration(milliseconds: 500));
                                         Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginScreen()));
                                         setState(()  {

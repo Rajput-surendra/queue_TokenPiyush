@@ -104,15 +104,16 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                           getTokenModel?.todayTokens == null ?? false ? SizedBox.shrink() : const Text("Today's Token", style: TextStyle(color: AppColors.fntClr, fontSize: 18, fontWeight: FontWeight.bold)),
                           SizedBox(height: 10,),
                           Container(
-                            height: MediaQuery.of(context).size.width/1.1,
+
                             child: getTokenModel?.todayTokens?.isEmpty ?? false ? Center(child: const Text("No Todays Tokens")):ListView.builder(
                                 itemCount: getTokenModel?.todayTokens?.length ?? 0,
-
+                                  shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context,i){
                                   return  InkWell(
                                       onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> QueueDetails(tokenTd: getTokenModel?.todayTokens?[i].id,)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> QueueDetails(tokenTd: getTokenModel?.todayTokens?[i].id,changeName: getTokenModel?.todayTokens?[i].userName,)));
                                     },
                                     child: Container(
                                       width: MediaQuery.of(context).size.width/1.1,
@@ -146,7 +147,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
 
-                                                  Text("From Time:"),
+                                                  Text("From:"),
                                                   Text(" ${getTokenModel?.todayTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
@@ -155,7 +156,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("To Time:"),
+                                                  Text("To :"),
                                                   Text(" ${getTokenModel?.todayTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
@@ -188,7 +189,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                           ),
                           SizedBox(height: 10,),
                           Container(
-                            width: MediaQuery.of(context).size.width/1.1,
+                            width: MediaQuery.of(context).size.width/1.0,
                             child:getTokenModel?.tomorrowTokens?.isEmpty ?? false ? Center(child: const Text("No Tomorrow Tokens")): ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
@@ -198,7 +199,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                 itemBuilder: (context,i){
                                   return  InkWell(
                                     onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> QueueDetails(tokenTd: getTokenModel?.tomorrowTokens?[i].id,)));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> QueueDetails(tokenTd: getTokenModel?.tomorrowTokens?[i].id,changeName: getTokenModel?.tomorrowTokens?[i].userName,)));
                                     },
                                     child: Container(
                                       width: MediaQuery.of(context).size.width/1.2,
@@ -230,7 +231,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
 
-                                                  Text("From Time:"),
+                                                  Text("From:"),
                                                   Text(" ${getTokenModel?.tomorrowTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
@@ -238,7 +239,7 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("To Time:"),
+                                                  Text("To:"),
                                                   Text(" ${getTokenModel?.tomorrowTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),

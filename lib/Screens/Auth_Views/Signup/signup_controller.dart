@@ -40,7 +40,7 @@ class SignupController extends AppBaseController {
       'city':city,
       'cat_id':catId.toString()
     };
-
+   print('____Som______${param}_________');
     apiBaseHelper.postAPICall(getUserRegister, param).then((getData) {
       bool status = getData['status'];
       String msg = getData['msg'];

@@ -102,10 +102,11 @@ class LoginController extends AppBaseController {
     print('____Som______${param}_________');
     apiBaseHelper.postAPICall(sendOTPAPI, param).then((getData) {
       bool status = getData['status'];
-      String msg = getData['msg'];
-       role = getData['data']['role'];
-       print('____Som______${role}_________');
+       String msg = getData['msg'];
+           print('____Som______${status}_________');
       if (status == true) {
+        print('____Som______${status}_________');
+        role = getData['data']['role'];
         SharedPre.setValue('userData', getData['data']['user_name']);
         SharedPre.setValue('userMobile', getData['data']['mobile']);
         SharedPre.setValue('userReferCode', getData['data']['referral_code']);
@@ -124,7 +125,8 @@ class LoginController extends AppBaseController {
         }
       }
       else {
-        Fluttertoast.showToast(msg: "Please register yourself first.");
+        print('____Som______${status}_________');
+        Fluttertoast.showToast(msg: "Invalid email & password");
         update();
         isLoading = false;
 

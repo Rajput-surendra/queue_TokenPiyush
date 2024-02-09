@@ -44,16 +44,19 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
    // getSlider();
      getFilterApi();
-    referCode();
+     referCode();
+    //checkStatusApi();
 
   }
   String? userRole;
   referCode() async {
     userRole = await SharedPre.getStringValue('userRole');
+    userId =  await SharedPre.getStringValue('userId');
     setState(() {
-
+      checkStatusApi();
     });
   }
+  String? userId;
 
 
   final CarouselController carouselController = CarouselController();
@@ -191,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
   todayToken(){
     return Container(
      // height: MediaQuery.of(context).size.height,
-      child:getCounterModel?.todaysTokens!.isEmpty ?? false ? Center(child: Text("No Today Token")): ListView.builder(
+      child:getCounterModel?.todaysTokens?.isEmpty ?? false ? Center(child: Text("No Today Token")): ListView.builder(
           scrollDirection: Axis.vertical,
             shrinkWrap: true,
            reverse: true,
@@ -524,9 +527,13 @@ counterUI(){
                 //   ),
                 //   const SizedBox(height: 10,),
                   InkWell(
+                   onTap: () async {
+                     if(status == 0){
+                     await  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddCreateTokenScreen())).then((value) => checkStatusApi());
+                     }else{
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateTokenScreen()));
+                     }
 
-                   onTap: (){
-                     Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateTokenScreen()));
                    },
 
                       child: Container(
@@ -580,7 +587,29 @@ counterUI(){
       ),
     );
    }
+   int? status;
+   checkStatusApi() async {
+     var headers = {
+       'Cookie': 'ci_session=bf32b2a3ee26e7283f83bbed06a9a212f774886d'
+     };
+     var request = http.MultipartRequest('POST', Uri.parse('${baseUrl1}/Apicontroller/check_tockens'));
+     request.fields.addAll({
+       'user_id':userId.toString()
+     });
+    print('____Som___request.fields___${request.fields}_________');
+     request.headers.addAll(headers);
+     http.StreamedResponse response = await request.send();
+     if (response.statusCode == 200) {
+       var result  = await response.stream.bytesToString();
+       var finalResult =  jsonDecode(result);
+       status = finalResult['data'];
+       print('____Som______${status}_________');
+     }
+     else {
+     print(response.reasonPhrase);
+     }
 
+   }
   int _currentPostCounter = 0;
   _buildDotsCounter() {
     List<Widget> dots = [];
