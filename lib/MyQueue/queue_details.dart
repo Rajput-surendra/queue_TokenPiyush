@@ -33,7 +33,7 @@ class _QueueDetailsState extends State<QueueDetails> {
   }
   late final Uri _url;
   getUrl(){
-    _url = Uri.parse('https://developmentalphawizz.com/queue_token/Apicontroller/download_bookings/${widget.tokenTd}');
+    _url = Uri.parse('https://qtoken.co.in/Apicontroller/download_bookings/${widget.tokenTd}');
     print('____Som___fff___${_url}_________');
 
   }
@@ -138,13 +138,13 @@ class _QueueDetailsState extends State<QueueDetails> {
                                       Text("(Age:${getTokenDetailsModel?.data?[i].age})",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
                                     ],
                                   ),
-                                  SizedBox(height: 5,),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.call,size:22),
-                                      Text("${getTokenDetailsModel?.data?[i].mobile}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
-                                    ],
-                                  ),
+                                  // SizedBox(height: 5,),
+                                  // Row(
+                                  //   children: [
+                                  //     Icon(Icons.call,size:22),
+                                  //     Text("${getTokenDetailsModel?.data?[i].mobile}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                  //   ],
+                                  // ),
                                   SizedBox(height: 5,),
                                   Row(children: [
                                     Icon(Icons.location_on_outlined),
@@ -512,7 +512,7 @@ getStatusApi(String? id,) async {
   var headers = {
     'Cookie': 'ci_session=ef51cb02d985a63bdab71e9a7b0dbdf944badd53'
   };
-  var request = http.MultipartRequest('POST', Uri.parse('https://developmentalphawizz.com/queue_token/Apicontroller/update_booking_status'));
+  var request = http.MultipartRequest('POST', Uri.parse('https://qtoken.co.in/Apicontroller/update_booking_status'));
   request.fields.addAll({
     'booking_id':id.toString(),
     'status':"1"
@@ -537,7 +537,7 @@ getStatusApi(String? id,) async {
     var headers = {
       'Cookie': 'ci_session=ef51cb02d985a63bdab71e9a7b0dbdf944badd53'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('https://developmentalphawizz.com/queue_token/Apicontroller/update_booking_status'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://qtoken.co.in/Apicontroller/update_booking_status'));
     request.fields.addAll({
       'booking_id':id.toString(),
       'status':"2"
@@ -563,7 +563,7 @@ getStatusApi(String? id,) async {
     var headers = {
       'Cookie': 'ci_session=10ea41bcc3ecad102955cc279e8adb576c63be86'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('https://developmentalphawizz.com/queue_token/Apicontroller/get_token_bookings'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://qtoken.co.in/Apicontroller/get_token_bookings'));
     request.fields.addAll({
       'token_id':widget.tokenTd.toString()
     });

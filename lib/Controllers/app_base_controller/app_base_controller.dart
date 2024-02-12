@@ -12,7 +12,7 @@ class AppBaseController extends GetxController {
   double height = 0 ;
 
   String imageUrl2 =
-      'https://developmentalphawizz.com/queue_token/';
+      'https://qtoken.co.in/';
   void setBusy(bool value) {
     isBusy = value;
     update();

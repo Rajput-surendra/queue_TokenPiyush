@@ -1,4 +1,4 @@
-/// profile : {"user_id":"220","queue_token":"ujj220","user_name":"metanta","email":"","mobile":"1212121212","password":"","api_key":"","referral_code":"6d83d9162850","referred_by":null,"security_pin":"5063","image":"https://developmentalphawizz.com/queue_token/uploads/img/user/user.png","wallet_balance":"0","hold_amount":"0","last_update":"2023-12-26 19:46:02","insert_date":"26-Dec-2023","status":"1","verified":"1","betting_status":"0","notification_status":"1","transfer_point_status":"0","role":"counter","address":"nanakheda ujjain ","city":"ujjain","category":null,"time_per_client":null,"shift":" To ","shift_hrs":null}
+/// profile : {"user_id":"220","queue_token":"ujj220","user_name":"metanta","email":"","mobile":"1212121212","password":"","api_key":"","referral_code":"6d83d9162850","referred_by":null,"security_pin":"5063","image":"https://qtoken.co.in/uploads/img/user/user.png","wallet_balance":"0","hold_amount":"0","last_update":"2023-12-26 19:46:02","insert_date":"26-Dec-2023","status":"1","verified":"1","betting_status":"0","notification_status":"1","transfer_point_status":"0","role":"counter","address":"nanakheda ujjain ","city":"ujjain","category":null,"time_per_client":null,"shift":" To ","shift_hrs":null}
 /// msg : "User Profile Data."
 /// status : true
 
@@ -53,7 +53,7 @@ GetProfileModel copyWith({  Profile? profile,
 /// referral_code : "6d83d9162850"
 /// referred_by : null
 /// security_pin : "5063"
-/// image : "https://developmentalphawizz.com/queue_token/uploads/img/user/user.png"
+/// image : "https://qtoken.co.in/uploads/img/user/user.png"
 /// wallet_balance : "0"
 /// hold_amount : "0"
 /// last_update : "2023-12-26 19:46:02"

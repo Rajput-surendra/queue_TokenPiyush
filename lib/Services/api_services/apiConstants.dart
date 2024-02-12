@@ -54,8 +54,8 @@ const String bankDetail =
 
 // for demo panels
 ApiBaseHelper apiBaseHelper = ApiBaseHelper();
-const String baseUrl = 'https://developmentalphawizz.com/queue_token/';
-const String baseUrl1 = 'https://developmentalphawizz.com/queue_token';
+const String baseUrl = 'https://qtoken.co.in/';
+const String baseUrl1 = 'https://qtoken.co.in';
 const String imageUrl = 'https://developmentalphawizz.com/';
 
 //const String ecomExpressUrl = 'https://clbeta.ecomexpress.in/track_me/api/mawbd/';

@@ -54,7 +54,7 @@ String? cat_Id;
     var headers = {
       'Cookie': 'ci_session=55b4cc64e9d4b5f85e3ff465bbb04ff414900228'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('https://developmentalphawizz.com/queue_token/Apicontroller/get_counter_cat'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://qtoken.co.in/Apicontroller/get_counter_cat'));
     request.fields.addAll({
       'user_id':userId.toString()
     });

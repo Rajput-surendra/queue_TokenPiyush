@@ -203,7 +203,7 @@ class _CreateTokenDetailsState extends State<CreateTokenDetails> {
     var headers = {
       'Cookie': 'ci_session=10ea41bcc3ecad102955cc279e8adb576c63be86'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('https://developmentalphawizz.com/queue_token/Apicontroller/get_token_bookings'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://qtoken.co.in/Apicontroller/get_token_bookings'));
     request.fields.addAll({
       'token_id':widget.tokenTd.toString()
     });
