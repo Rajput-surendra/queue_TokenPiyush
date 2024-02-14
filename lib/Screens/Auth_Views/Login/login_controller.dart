@@ -115,7 +115,7 @@ class LoginController extends AppBaseController {
         SharedPre.setValue('userRole', getData['data']['role']);
         Fluttertoast.showToast(msg: msg);
         if(role == "user"){
-          Get.offAllNamed(search);
+          Get.offAllNamed(bottomBar);
         }else{
           if(role == 'user'){
             Get.offAllNamed(bottomBar);

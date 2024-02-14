@@ -51,7 +51,6 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         backgroundColor: AppColors.whit,
         appBar: AppBar(
           leading: InkWell(

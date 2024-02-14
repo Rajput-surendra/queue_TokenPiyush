@@ -15,6 +15,8 @@ import '../../Models/get_token_list_model.dart';
 import '../../Services/api_services/apiConstants.dart';
 import 'package:http/http.dart'as http;
 
+import '../Search/search_view.dart';
+
 class MyBookingsScreen extends StatefulWidget {
   const MyBookingsScreen({Key? key, this.isFrom}) : super(key: key);
 final bool? isFrom ;
@@ -36,10 +38,28 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
     getBookingApi();
   }
 
-
+bool isLodding =  false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+
+            elevation: 0.0,
+            child: isLodding ? Center(child: Transform.scale(
+                scale: 0.7,
+                child: CircularProgressIndicator(color: AppColors.whit,))):  Icon(Icons.refresh_sharp),
+            backgroundColor: AppColors.primary,
+          onPressed: (){
+            setState(() {
+              isLodding = true;
+            });
+            // getBookingApi();
+            Future.delayed(Duration(seconds: 1),(){
+              getBookingApi();
+            });
+
+          },
+        ),
       backgroundColor: AppColors.whit,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -50,6 +70,15 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
         toolbarHeight: 60,
         centerTitle: true,
         title: Text("My Token",style: TextStyle(fontSize: 17),),
+        actions: [
+           IconButton(
+            icon: Icon(Icons.search),
+            onPressed: (){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
+            },
+          ),
+
+        ],
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             borderRadius:   BorderRadius.only(
@@ -344,14 +373,15 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
     request.fields.addAll({
       'user_id':userId.toString()
     });
- print('______request.fields____${request.fields}_________');
-    request.headers.addAll(headers);
+print('____Som______${request.fields}_________');
+        request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
      var result = await response.stream.bytesToString();
      var finalResult = GetTokenListModel.fromJson(jsonDecode(result));
      setState(() {
+       isLodding = false;
        getTokenListModel = finalResult;
      });
     }

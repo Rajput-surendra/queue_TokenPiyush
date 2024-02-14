@@ -45,7 +45,7 @@ RxBool isLoading = false.obs ;
         SharedPre.setValue('userRole', getData['role']);
         Fluttertoast.showToast(msg: msg);
         if(role == "user"){
-          Get.offAllNamed(search);
+          Get.offAllNamed(bottomBar);
         }else{
           if(role == 'user'){
             Get.offAllNamed(bottomBar);

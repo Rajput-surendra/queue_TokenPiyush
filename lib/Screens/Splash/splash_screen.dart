@@ -1,5 +1,6 @@
 import 'dart:async';
 
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:booknplay/Screens/Search/search_view.dart';
 import 'package:booknplay/Screens/Splash/splash_controller.dart';
@@ -11,6 +12,7 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../Local_Storage/shared_pre.dart';
 import '../../Routes/routes.dart';
+import '../Dashboard/dashboard_view.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -36,7 +38,7 @@ class SplashScreen extends StatelessWidget {
             child: AnimatedSplashScreen.withScreenFunction(
               splash: 'assets/images/SPLASH LOGO.png',
               screenFunction: () async {
-                return checkLogin();
+                return checkLogin(BuildContext);
               },
               splashTransition: SplashTransition.scaleTransition,
               pageTransitionType: PageTransitionType.scale,
@@ -50,7 +52,7 @@ class SplashScreen extends StatelessWidget {
 
         });
   }
-  checkLogin() async {
+  checkLogin(context) async {
     final isLogin2 = await SharedPre.getStringValue('userId');
     Future.delayed(const Duration(seconds: 1), () async {
       final isLogin = await SharedPre.getStringValue('userId');
@@ -61,7 +63,9 @@ class SplashScreen extends StatelessWidget {
 
         // Navigator.push(MaterialPageRoute(builder: (context)=>SearchScreen()));
          if(role == "user"){
-           Get.offAllNamed(search);
+           Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardScreen()));
+           //Navigator.push(MaterialPageRoute(builder: (context)=>SearchScreen()));
+         //  Get.offAllNamed(search);
 
          }
          else if(role == "counter"){

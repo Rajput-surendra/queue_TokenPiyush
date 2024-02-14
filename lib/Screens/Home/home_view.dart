@@ -64,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+
         backgroundColor: AppColors.whit,
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -76,7 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
           title: const Text("QUEUE TOKEN",style: TextStyle(fontSize: 17),),
           actions: [
             userRole == 'user' ?  InkWell(onTap: (){
-              Navigator.pop(context);
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
+            //  Navigator.pop(context);
 
             },
                 child: const Icon(Icons.search)):SizedBox.shrink(),
@@ -112,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   ///////////////////////UserSite//////////////////
   userUI(){
-    return getCounterModel == null ?const Center(child: CircularProgressIndicator()) :RefreshIndicator(
+    return getCounterModel?.error == true  ? Center(child: Image.asset("assets/images/Notoken.png")) :RefreshIndicator(
       onRefresh: () {
         return Future.delayed(const Duration(seconds: 2),(){
          // getSlider();
