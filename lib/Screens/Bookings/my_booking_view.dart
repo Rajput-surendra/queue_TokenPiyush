@@ -74,7 +74,7 @@ bool isLodding =  false;
            IconButton(
             icon: Icon(Icons.search),
             onPressed: (){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
             },
           ),
 

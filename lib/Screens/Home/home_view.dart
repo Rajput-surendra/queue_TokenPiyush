@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:booknplay/Routes/routes.dart';
@@ -43,10 +44,20 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
    // getSlider();
-     getFilterApi();
+    getFilterApi();
+    _startTimer();
+
      referCode();
     //checkStatusApi();
 
+  }
+
+  late Timer _timer;
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) async {
+      getFilterApi();
+
+    });
   }
   String? userRole;
   referCode() async {
@@ -77,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: const Text("QUEUE TOKEN",style: TextStyle(fontSize: 17),),
           actions: [
             userRole == 'user' ?  InkWell(onTap: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
             //  Navigator.pop(context);
 
             },
@@ -485,7 +496,7 @@ class _HomeScreenState extends State<HomeScreen> {
         getCounterModel =  finalResult;
         print(getCounterModel);
       });
-      Fluttertoast.showToast(msg: "${finalResult.message}");
+     // Fluttertoast.showToast(msg: "${finalResult.message}");
 
     }
     else {
@@ -495,7 +506,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 ///////////////////////UserSite//////////////////
 ////////////////////////Counter///////////
-counterUI(){
+   counterUI(){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
       child: SingleChildScrollView(
@@ -535,9 +546,7 @@ counterUI(){
                      }else{
                        Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateTokenScreen()));
                      }
-
                    },
-
                       child: Container(
                       height: 120,
                       decoration: BoxDecoration(
@@ -553,7 +562,6 @@ counterUI(){
                           borderRadius: BorderRadius.circular(10)
                       ),
                       child: Center(child: const Text("Create Queue Counter ",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.bold,fontSize: 15),),),
-
                     ),
                   ),
                   const SizedBox(height: 10,),
@@ -576,11 +584,8 @@ counterUI(){
                           borderRadius: BorderRadius.circular(10)
                       ),
                       child: Center(child: const Text("My Queue",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.bold,fontSize: 15),)),
-
                     ),
                   ),
-
-
                 ],
               ),
             )

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -29,13 +30,23 @@ class _QueueDetailsState extends State<QueueDetails> {
     // TODO: implement initState
     super.initState();
     getUrl();
+    _startTimer();
     getTokenDetailsApi();
+
   }
   late final Uri _url;
   getUrl(){
     _url = Uri.parse('https://qtoken.co.in/Apicontroller/download_bookings/${widget.tokenTd}');
     print('____Som___fff___${_url}_________');
 
+  }
+
+  late Timer _timer;
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) async {
+      getTokenDetailsApi();
+
+    });
   }
 
   Future<void> _launchUrl() async {
@@ -125,7 +136,7 @@ class _QueueDetailsState extends State<QueueDetails> {
 
       body: RefreshIndicator(
         onRefresh: () {
-          return Future.delayed(const Duration(seconds: 2),(){
+          return Future.delayed(const Duration(seconds: 1),(){
             getTokenDetailsApi();
           });
         },
@@ -156,25 +167,31 @@ class _QueueDetailsState extends State<QueueDetails> {
                                         children: [
                                           Row(
                                             children: [
-                                              Icon(Icons.person),
+                                              Icon(Icons.person,color: AppColors.primary),
                                               SizedBox(width: 2,),
                                               Text("${getTokenDetailsModel?.data?[i].name}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
-                                              SizedBox(width: 5,),
-                                              Text("(Age:${getTokenDetailsModel?.data?[i].age})",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+
                                             ],
                                           ),
-                                          // SizedBox(height: 5,),
-                                          // Row(
-                                          //   children: [
-                                          //     Icon(Icons.call,size:22),
-                                          //     Text("${getTokenDetailsModel?.data?[i].mobile}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
-                                          //   ],
-                                          // ),
+                                          SizedBox(height: 5,),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.timer,size:22,color: AppColors.primary),
+                                              Text("${getTokenDetailsModel?.data?[i].time}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                            ],
+                                          ),
                                           SizedBox(height: 5,),
                                           Row(children: [
-                                            Icon(Icons.location_on_outlined),
+                                            Icon(Icons.location_on_outlined,color: AppColors.primary),
                                             Text("${getTokenDetailsModel?.data?[i].city}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
-                                          ],
+                                          ],),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.person,color: AppColors.primary),
+                                              SizedBox(width: 2,),
+                                              Text("(Age ${getTokenDetailsModel?.data?[i].age})",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -355,7 +372,7 @@ class _QueueDetailsState extends State<QueueDetails> {
                                           children: [
                                             Row(
                                               children: [
-                                                Icon(Icons.person),
+                                                Icon(Icons.person,color: AppColors.primary),
                                                 SizedBox(width: 2,),
                                                 Text("${getTokenDetailsModel?.skipedBookings?[i].name}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
                                                 SizedBox(width: 5,),
@@ -365,13 +382,13 @@ class _QueueDetailsState extends State<QueueDetails> {
                                             SizedBox(height: 5,),
                                             Row(
                                               children: [
-                                                Icon(Icons.call,size:22),
-                                                Text("${getTokenDetailsModel?.skipedBookings?[i].mobile}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                                Icon(Icons.timer,size:22,color: AppColors.primary),
+                                                Text("${getTokenDetailsModel?.skipedBookings?[i].time}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
                                               ],
                                             ),
                                             SizedBox(height: 5,),
                                             Row(children: [
-                                              Icon(Icons.location_on_outlined),
+                                              Icon(Icons.location_on_outlined,color: AppColors.primary),
                                               Text("${getTokenDetailsModel?.skipedBookings?[i].city}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
                                             ],
                                             ),
@@ -452,7 +469,7 @@ class _QueueDetailsState extends State<QueueDetails> {
                                           children: [
                                             Row(
                                               children: [
-                                                Icon(Icons.person),
+                                                Icon(Icons.person,color: AppColors.primary),
                                                 SizedBox(width: 2,),
                                                 Text("${getTokenDetailsModel?.completeBookings?[i].name}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
                                                 SizedBox(width: 5,),
@@ -462,13 +479,13 @@ class _QueueDetailsState extends State<QueueDetails> {
                                             SizedBox(height: 5,),
                                             Row(
                                               children: [
-                                                Icon(Icons.call,size:22),
-                                                Text("${getTokenDetailsModel?.completeBookings?[i].mobile}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                                Icon(Icons.timer,size:22,color: AppColors.primary,),
+                                                Text("${getTokenDetailsModel?.completeBookings?[i].time}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
                                               ],
                                             ),
                                             SizedBox(height: 5,),
                                             Row(children: [
-                                              Icon(Icons.location_on_outlined),
+                                              Icon(Icons.location_on_outlined,color: AppColors.primary),
                                               Text("${getTokenDetailsModel?.completeBookings?[i].city}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
                                             ],
                                             ),
