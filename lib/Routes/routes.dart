@@ -3,6 +3,7 @@ const String loginScreen  = '/LOGIN_SCREEN';
 const String signupScreen  = '/SIGNUP_SCREEN';
 const String resultScreen  = '/RESULT_SCREEN';
 const String bottomBar  = '/BOTTOMBAR_SCREEN';
+const String bottomSearch  = '/SEARCH_SCREEN';
 const String bottomBar1  = '/BOTTOM_SCREEN';
 const String introScreen  = '/INTRO_SCREEN';
 const String homeScreen  = '/HOME_SCREEN';

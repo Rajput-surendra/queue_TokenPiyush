@@ -1,4 +1,5 @@
 import 'package:booknplay/Controllers/app_base_controller/app_base_controller.dart';
+import 'package:booknplay/Screens/Search/search_view.dart';
 import 'package:booknplay/Services/api_services/apiStrings.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -56,7 +57,7 @@ class SignupController extends AppBaseController {
         SharedPre.setValue('userRole', getData['data']['role']);
         Fluttertoast.showToast(msg: msg);
         if(role == "user"){
-          Get.offAllNamed(search);
+          Get.offAllNamed(bottomSearch);
         }else{
           if(role == 'user'){
             Get.offAllNamed(bottomBar);

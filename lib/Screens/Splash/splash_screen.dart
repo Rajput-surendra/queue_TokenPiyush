@@ -13,6 +13,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../Local_Storage/shared_pre.dart';
 import '../../Routes/routes.dart';
 import '../Dashboard/dashboard_view.dart';
+import '../Search/searchBottom.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -63,9 +64,9 @@ class SplashScreen extends StatelessWidget {
 
         // Navigator.push(MaterialPageRoute(builder: (context)=>SearchScreen()));
          if(role == "user"){
-           Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardScreen()));
+           //Navigator.push(context,MaterialPageRoute(builder: (context)=>SearchBottom()));
            //Navigator.push(MaterialPageRoute(builder: (context)=>SearchScreen()));
-         //  Get.offAllNamed(search);
+           Get.offAllNamed(bottomSearch);
 
          }
          else if(role == "counter"){

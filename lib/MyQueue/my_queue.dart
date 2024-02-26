@@ -90,24 +90,24 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
              getTokenApi();
             });
           },
-          child:  /*getTokenModel?.todayTokens == null? Center(child: Center(child: const CircularProgressIndicator())):*/ getTokenModel?.todayTokens == null ?Center(child: Text("No Tokens")): ListView.builder(
+          child:  /*getTokenModel?.todayTokens == null? Center(child: Center(child: const CircularProgressIndicator())):*/ getTokenModel?.todayTokens == null ?const Center(child: Text("No Tokens")): ListView.builder(
               itemCount: 1,
               itemBuilder: (context,i){
                 return  SingleChildScrollView(
                     child:Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child:getTokenModel == null ? Center(child: CircularProgressIndicator()): Column(
+                      child:getTokenModel == null ? const Center(child: CircularProgressIndicator()): Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 10,),
-                          getTokenModel?.todayTokens == null ?? false ? SizedBox.shrink() : const Text("Today's Token", style: TextStyle(color: AppColors.fntClr, fontSize: 18, fontWeight: FontWeight.bold)),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
+                          getTokenModel?.todayTokens == null ?? false ? const SizedBox.shrink() : const Text("Today's Token", style: TextStyle(color: AppColors.fntClr, fontSize: 18, fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 10,),
                           Container(
 
-                            child: getTokenModel?.todayTokens?.isEmpty ?? false ? Center(child: const Text("No Todays Tokens")):ListView.builder(
+                            child: getTokenModel?.todayTokens?.isEmpty ?? false ? const Center(child: Text("No Todays Tokens")):ListView.builder(
                                 itemCount: getTokenModel?.todayTokens?.length ?? 0,
                                   shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context,i){
                                   return  InkWell(
@@ -123,51 +123,51 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("Name:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].userName}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  const Text("Name:"),
+                                                  Text(" ${getTokenModel?.todayTokens?[i].userName}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
 
                                                 ],
                                               ),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("Counter Id:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].uniqueId}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  const Text("Counter Id:"),
+                                                  Text(" ${getTokenModel?.todayTokens?[i].uniqueId}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
 
                                                 ],
                                               ),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
 
-                                                  Text("From:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  const Text("From:"),
+                                                  Text(" ${getTokenModel?.todayTokens?[i].fromTime}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
 
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("To :"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  const Text("To :"),
+                                                  Text(" ${getTokenModel?.todayTokens?[i].toTime}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("Token Time:"),
-                                                  Text(" ${getTokenModel?.todayTokens?[i].timePerClient} minutes ",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  const Text("Token Time:"),
+                                                  Text(" ${getTokenModel?.todayTokens?[i].timePerClient} minutes ",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
 
                                             ],
 
@@ -178,18 +178,18 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                   );
                                 }),
                           ),
-                          SizedBox(height: 20,),
-                          getTokenModel?.tomorrowTokens == null ?? false ? SizedBox.shrink() :  const Text(
+                          const SizedBox(height: 20,),
+                          getTokenModel?.tomorrowTokens == null ?? false ? const SizedBox.shrink() :  const Text(
                             "Tomorrow Token",
                             style: TextStyle(
                                 color: AppColors.fntClr,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                           Container(
                             width: MediaQuery.of(context).size.width/1.0,
-                            child:getTokenModel?.tomorrowTokens?.isEmpty ?? false ? Center(child: const Text("No Tomorrow Tokens")): ListView.builder(
+                            child:getTokenModel?.tomorrowTokens?.isEmpty ?? false ? const Center(child: Text("No Tomorrow Tokens")): ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
                                 reverse: true,
@@ -213,44 +213,44 @@ class _MyQueueScreenState extends State<MyQueueScreen> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("Name:"),
-                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].userName}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  const Text("Name:"),
+                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].userName}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("Counter Id:"),
-                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].uniqueId}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  const Text("Counter Id:"),
+                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].uniqueId}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
 
-                                                  Text("From:"),
-                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].fromTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  const Text("From:"),
+                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].fromTime}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("To:"),
-                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].toTime}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  const Text("To:"),
+                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].toTime}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("Token Time:"),
-                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].timePerClient} minutes ",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
+                                                  const Text("Token Time:"),
+                                                  Text(" ${getTokenModel?.tomorrowTokens?[i].timePerClient} minutes ",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.bold),),
                                                 ],
                                               ),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
 
                                             ],
                                           ),

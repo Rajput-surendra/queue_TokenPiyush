@@ -11,6 +11,7 @@ import 'package:booknplay/Screens/Dashboard/dashbord_counter_view.dart';
 import 'package:booknplay/Screens/Home/home_view.dart';
 import 'package:booknplay/Screens/Privacy_Policy/privacy_view.dart';
 import 'package:booknplay/Screens/Profile/profile_view.dart';
+import 'package:booknplay/Screens/Search/searchBottom.dart';
 import 'package:booknplay/Screens/Search/search_view.dart';
 import 'package:booknplay/Screens/Splash/splash_screen.dart';
 import 'package:booknplay/Screens/Terms_Condition/terms_condition_view.dart';
@@ -45,6 +46,10 @@ class AllPages {
       GetPage(
           name: bottomBar,
           page: () =>  DashBoardScreen(),
+          binding: ScreenBindings()),
+      GetPage(
+          name: bottomSearch,
+          page: () =>  SearchBottom(),
           binding: ScreenBindings()),
       GetPage(
           name: bottomBar1,

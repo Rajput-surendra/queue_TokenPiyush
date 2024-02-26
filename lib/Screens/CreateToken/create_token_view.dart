@@ -329,7 +329,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                                                       Navigator.push(context, MaterialPageRoute(builder: (context)=> AddCreateTokenScreen(tokenId: getTokenModel?.tomorrowTokens?[i].id,isUpdate: true,))).then((value) => getTokenApi());
                                                     },
                                                     child: Container(
-                                                      height: 40,
+                                                      height: 30,
                                                       width: 80,
                                                       decoration: BoxDecoration(
                                                           borderRadius: BorderRadius.circular(10),
@@ -371,7 +371,7 @@ class _CreateTokenScreenState extends State<CreateTokenScreen> {
                                                       );
                                                     },
                                                     child: Container(
-                                                      height: 40,
+                                                      height: 30,
                                                       width: 80,
                                                       decoration: BoxDecoration(
                                                           borderRadius: BorderRadius.circular(10),

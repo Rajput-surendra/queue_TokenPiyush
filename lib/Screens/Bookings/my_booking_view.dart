@@ -15,6 +15,7 @@ import '../../Models/get_token_list_model.dart';
 import '../../Services/api_services/apiConstants.dart';
 import 'package:http/http.dart'as http;
 
+import '../Search/searchBottom.dart';
 import '../Search/search_view.dart';
 
 class MyBookingsScreen extends StatefulWidget {
@@ -74,7 +75,7 @@ bool isLodding =  false;
            IconButton(
             icon: Icon(Icons.search),
             onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchBottom()));
             },
           ),
 

@@ -32,7 +32,7 @@ class _DashBoardCounterScreenState extends State<DashBoardCounterScreen> {
   List <Widget>
   pageList  = [
     HomeScreen(),
-   SubscriptionScreen(isbool: true,),
+   //SubscriptionScreen(isbool: true,),
     //SubscriptionScreen(),
     ProfileScreen(),
   ];
@@ -98,13 +98,13 @@ class _DashBoardCounterScreenState extends State<DashBoardCounterScreen> {
                   labelStyle: TextStyle(color: AppColors.whit)
               ),
 
-
-              CurvedNavigationBarItem(
-                  child: ImageIcon(AssetImage(AppConstants.bookingHistoryIcon),
-                      color: AppColors.whit),
-                  label: 'Subscription',
-                  labelStyle: TextStyle(color: AppColors.whit)
-              ),
+              //
+              // CurvedNavigationBarItem(
+              //     child: ImageIcon(AssetImage(AppConstants.bookingHistoryIcon),
+              //         color: AppColors.whit),
+              //     label: 'Subscription',
+              //     labelStyle: TextStyle(color: AppColors.whit)
+              // ),
               CurvedNavigationBarItem(
                   child: ImageIcon(AssetImage(AppConstants.profileIcon),
                       color: AppColors.whit),

@@ -78,19 +78,19 @@ class _QueueDetailsState extends State<QueueDetails> {
         // centerTitle: true,
         title:  Text(
           "${widget.changeName}",
-          style: TextStyle(fontSize: 17),
+          style: const TextStyle(fontSize: 17),
         ),
         actions: [
           isLodding ? Center(child: Transform.scale(
             scale: 0.5,
-              child: CircularProgressIndicator(color: AppColors.whit,))):  IconButton(
-            icon: Icon(Icons.refresh_sharp),
+              child: const CircularProgressIndicator(color: AppColors.whit,))):  IconButton(
+            icon: const Icon(Icons.refresh_sharp),
             tooltip: 'Refresh',
             onPressed: (){
               setState(() {
                 isLodding = true;
               });
-              Future.delayed(Duration(seconds: 1),(){
+              Future.delayed(const Duration(seconds: 1),(){
                 getTokenDetailsApi();
               });
 
@@ -103,7 +103,7 @@ class _QueueDetailsState extends State<QueueDetails> {
             await Navigator.push(context, MaterialPageRoute(builder: (context)=>CounterViewBookingScreen(tokenId: widget.tokenTd,))).then((value) => getTokenDetailsApi());
               },
 
-                  child: Center(child: Icon(Icons.add,color: AppColors.whit,size: 26,))),
+                  child: const Center(child: Icon(Icons.add,color: AppColors.whit,size: 26,))),
         ),
           Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -111,7 +111,7 @@ class _QueueDetailsState extends State<QueueDetails> {
                 onTap: () async {
                   await  _launchUrl();
                 },
-                child: Icon(Icons.download)),
+                child: const Icon(Icons.download)),
           )
         ],
 
@@ -146,10 +146,10 @@ class _QueueDetailsState extends State<QueueDetails> {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  getTokenDetailsModel  == null ? Center(child: CircularProgressIndicator()):
+                  getTokenDetailsModel  == null ? const Center(child: CircularProgressIndicator()):
                   Container(
                     child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount:getTokenDetailsModel?.data?.length  ?? 0,
                         itemBuilder: (c,i){
@@ -167,36 +167,37 @@ class _QueueDetailsState extends State<QueueDetails> {
                                         children: [
                                           Row(
                                             children: [
-                                              Icon(Icons.person,color: AppColors.primary),
-                                              SizedBox(width: 2,),
-                                              Text("${getTokenDetailsModel?.data?[i].name}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                              const Icon(Icons.person,color: AppColors.primary),
+                                              const SizedBox(width: 2,),
+                                              Text("${getTokenDetailsModel?.data?[i].name}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
 
                                             ],
                                           ),
-                                          SizedBox(height: 5,),
                                           Row(
                                             children: [
-                                              Icon(Icons.timer,size:22,color: AppColors.primary),
-                                              Text("${getTokenDetailsModel?.data?[i].time}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                              const Icon(Icons.person,color: AppColors.primary),
+                                              const SizedBox(width: 2,),
+                                              Text("(Age ${getTokenDetailsModel?.data?[i].age})",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+
                                             ],
                                           ),
-                                          SizedBox(height: 5,),
+
+                                          getTokenDetailsModel?.data?[i].isFirst == 1 ?  Row(
+                                            children: [
+                                              const Icon(Icons.timer,size:22,color: AppColors.primary),
+                                              Text("${getTokenDetailsModel?.data?[i].time}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                            ],
+                                          ): const SizedBox.shrink(),
+                                          const SizedBox(height: 2,),
                                           Row(children: [
-                                            Icon(Icons.location_on_outlined,color: AppColors.primary),
-                                            Text("${getTokenDetailsModel?.data?[i].city}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
+                                            const Icon(Icons.location_on_outlined,color: AppColors.primary),
+                                            Text("${getTokenDetailsModel?.data?[i].city}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
                                           ],),
-                                          Row(
-                                            children: [
-                                              Icon(Icons.person,color: AppColors.primary),
-                                              SizedBox(width: 2,),
-                                              Text("(Age ${getTokenDetailsModel?.data?[i].age})",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
 
-                                            ],
-                                          ),
                                         ],
                                       ),
 
-                                      SizedBox(height: 5,),
+                                      const SizedBox(height: 5,),
                                       Row(
                                         children: [
                                           Padding(
@@ -211,9 +212,9 @@ class _QueueDetailsState extends State<QueueDetails> {
                                                       color: AppColors.primary,
                                                       borderRadius: BorderRadius.circular(50)
                                                   ),
-                                                  child: Center(child: Text("${getTokenDetailsModel?.data?[i].tokenNumber}",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500),)),
+                                                  child: Center(child: Text("${getTokenDetailsModel?.data?[i].tokenNumber}",style: const TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500),)),
                                                 ),
-                                                SizedBox(height: 10,),
+                                                const SizedBox(height: 10,),
                                                 Row(
                                                   children: [
                                                     getTokenDetailsModel?.data?[i].isFirst == 1 ? InkWell(
@@ -226,8 +227,8 @@ class _QueueDetailsState extends State<QueueDetails> {
                                                               width: 150,
                                                               child: AlertDialog(
 
-                                                                title: Text("Pending Booking Confirmation",style: TextStyle(fontSize: 15),),
-                                                                content: Text("Are you sure you want to Pending this booking?"),
+                                                                title: const Text("Pending Booking Confirmation",style: TextStyle(fontSize: 15),),
+                                                                content: const Text("Are you sure you want to Pending this booking?"),
 
                                                                 actions: <Widget>[
                                                                   // Text(""),
@@ -238,14 +239,14 @@ class _QueueDetailsState extends State<QueueDetails> {
                                                                         onPressed: () {
                                                                           Navigator.of(context).pop(false); // Cancel exit
                                                                         },
-                                                                        child: Text("NO"),
+                                                                        child: const Text("NO"),
                                                                       ),
                                                                       TextButton(
                                                                         onPressed: () {
                                                                           getStatusSkipApi(getTokenDetailsModel?.data?[i].id);
                                                                           Navigator.of(context).pop(false); // C
                                                                         },
-                                                                        child: Text("Yes"),
+                                                                        child: const Text("Yes"),
                                                                       ),
                                                                     ],
                                                                   )
@@ -265,8 +266,8 @@ class _QueueDetailsState extends State<QueueDetails> {
                                                         child: const Center(child:Text("Pending ",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500))
                                                         ),
                                                       ),
-                                                    ):SizedBox(),
-                                                    SizedBox(width: 5,),
+                                                    ):const SizedBox(),
+                                                    const SizedBox(width: 5,),
                                                     getTokenDetailsModel?.data?[i].isFirst == 1 ?InkWell(
                                                       onTap: (){
                                                         showDialog(
@@ -277,27 +278,52 @@ class _QueueDetailsState extends State<QueueDetails> {
                                                               width: 150,
                                                               child: AlertDialog(
 
-                                                                title: Text("Next Booking Confirmation",style: TextStyle(fontSize: 15),),
-                                                                content: Text("Are you sure you want to complete this booking?"),
+                                                                title: const Column(
+                                                                  children: [
+                                                                    Text("Next Booking Confirmation",style: TextStyle(fontSize: 18),),
+                                                                    SizedBox(height: 10,),
+                                                                    Text("Are you sure you want to complete this\n booking?",style: TextStyle(fontSize: 12)),
+                                                                  ],
+                                                                ),
 
                                                                 actions: <Widget>[
                                                                   // Text(""),
                                                                   Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                     children: [
-                                                                      TextButton(
-                                                                        onPressed: () {
-                                                                          Navigator.of(context).pop(false); // Cancel exit
-                                                                        },
-                                                                        child: Text("NO"),
+                                                                      InkWell(
+                                                                        onTap: (){
+                                                                          Navigator.of(context).pop(false);
+                                                                      },
+                                                                        child: Container(
+                                                                                width: 60,
+                                                                                height: 40,
+                                                                          decoration: BoxDecoration(
+                                                                              color: AppColors.primary,
+                                                                            borderRadius: BorderRadius.circular(10)
+                                                                        ),
+                                                                          child: const Center(child: Text("NO",style: TextStyle(color: AppColors.whit),)),
+                                                                        ),
                                                                       ),
-                                                                      TextButton(
-                                                                        onPressed: () {
+
+                                                                      InkWell(
+                                                                        onTap: (){
                                                                           getStatusApi(getTokenDetailsModel?.data?[i].id,);
                                                                           Navigator.of(context).pop(false); // C
                                                                         },
-                                                                        child: Text("Yes"),
+                                                                        child: Container(
+                                                                          width: 60,
+                                                                          height: 40,
+                                                                          decoration: BoxDecoration(
+                                                                              color: AppColors.primary,
+                                                                              borderRadius: BorderRadius.circular(10)
+                                                                          ),
+                                                                          child: const Center(child: Text("YES",style: TextStyle(color: AppColors.whit
+
+                                                                          ),)),
+                                                                        ),
                                                                       ),
+
                                                                     ],
                                                                   )
                                                                 ],
@@ -318,19 +344,15 @@ class _QueueDetailsState extends State<QueueDetails> {
                                                         ),
                                                       ),
                                                     ):InkWell(
-                                                      child: Container(
-                                                        height: 30,
-                                                        width: 80,
-                                                        decoration: BoxDecoration(
-                                                            color: AppColors.secondary,
-                                                            borderRadius: BorderRadius.circular(10)
-                                                        ),
-                                                        child: const Center(child:Text("Upcoming",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500))
-                                                        ),
-                                                      ),)
+                                                      child: Row(
+                                                             children: [
+                                                               Icon(Icons.timer,color: AppColors.primary,),
+                                                               Text("${getTokenDetailsModel?.data?[i].time}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                                             ],
+                                                       ),)
                                                   ],
                                                 ),
-                                                SizedBox(height: 10,),
+                                                const SizedBox(height: 10,),
 
 
                                               ],
@@ -352,7 +374,7 @@ class _QueueDetailsState extends State<QueueDetails> {
                   //getTokenDetailsModel == null ? Center(child: CircularProgressIndicator()):getTokenDetailsModel?.skipedBookings?.isEmpty ?? false ? Center(child: Text("No Booking List Found!!")):
                   Container(
                     child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount:getTokenDetailsModel?.skipedBookings?.length?? 0,
                         itemBuilder: (c,i){
@@ -372,30 +394,30 @@ class _QueueDetailsState extends State<QueueDetails> {
                                           children: [
                                             Row(
                                               children: [
-                                                Icon(Icons.person,color: AppColors.primary),
-                                                SizedBox(width: 2,),
-                                                Text("${getTokenDetailsModel?.skipedBookings?[i].name}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
-                                                SizedBox(width: 5,),
-                                                Text("(Age:${getTokenDetailsModel?.skipedBookings?[i].age})",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                                const Icon(Icons.person,color: AppColors.primary),
+                                                const SizedBox(width: 2,),
+                                                Text("${getTokenDetailsModel?.skipedBookings?[i].name}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                                const SizedBox(width: 5,),
+                                                Text("(Age:${getTokenDetailsModel?.skipedBookings?[i].age})",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
                                               ],
                                             ),
-                                            SizedBox(height: 5,),
+                                            const SizedBox(height: 5,),
                                             Row(
                                               children: [
-                                                Icon(Icons.timer,size:22,color: AppColors.primary),
-                                                Text("${getTokenDetailsModel?.skipedBookings?[i].time}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                                const Icon(Icons.timer,size:22,color: AppColors.primary),
+                                                Text("${getTokenDetailsModel?.skipedBookings?[i].time}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
                                               ],
                                             ),
-                                            SizedBox(height: 5,),
+                                            const SizedBox(height: 5,),
                                             Row(children: [
-                                              Icon(Icons.location_on_outlined,color: AppColors.primary),
-                                              Text("${getTokenDetailsModel?.skipedBookings?[i].city}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
+                                              const Icon(Icons.location_on_outlined,color: AppColors.primary),
+                                              Text("${getTokenDetailsModel?.skipedBookings?[i].city}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
                                             ],
                                             ),
                                           ],
                                         ),
 
-                                        SizedBox(height: 5,),
+                                        const SizedBox(height: 5,),
                                         Row(
                                           children: [
                                             Padding(
@@ -410,9 +432,9 @@ class _QueueDetailsState extends State<QueueDetails> {
                                                         color: AppColors.primary,
                                                         borderRadius: BorderRadius.circular(50)
                                                     ),
-                                                    child: Center(child: Text("${getTokenDetailsModel?.skipedBookings?[i].tokenNumber}",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500),)),
+                                                    child: Center(child: Text("${getTokenDetailsModel?.skipedBookings?[i].tokenNumber}",style: const TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500),)),
                                                   ),
-                                                  SizedBox(height: 10,),
+                                                  const SizedBox(height: 10,),
                                                   getTokenDetailsModel?.skipedBookings?[i].status == "2"?InkWell(
                                                     onTap: (){
                                                       // getStatusApi(getTokenDetailsModel?.completeBookings?[i].id);
@@ -427,7 +449,7 @@ class _QueueDetailsState extends State<QueueDetails> {
                                                       child: const Center(child:Text("Pending",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500))
                                                       ),
                                                     ),
-                                                  ):SizedBox(),
+                                                  ):const SizedBox(),
 
 
 
@@ -449,7 +471,7 @@ class _QueueDetailsState extends State<QueueDetails> {
                   //getTokenDetailsModel == null ? Center(child: CircularProgressIndicator()):getTokenDetailsModel?.completeBookings?.isEmpty ?? false ? Center(child: Text("No Booking List Found!!")):
                   Container(
                     child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount:getTokenDetailsModel?.completeBookings?.length?? 0,
                         itemBuilder: (c,i){
@@ -469,30 +491,38 @@ class _QueueDetailsState extends State<QueueDetails> {
                                           children: [
                                             Row(
                                               children: [
-                                                Icon(Icons.person,color: AppColors.primary),
-                                                SizedBox(width: 2,),
-                                                Text("${getTokenDetailsModel?.completeBookings?[i].name}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
-                                                SizedBox(width: 5,),
-                                                Text("(Age:${getTokenDetailsModel?.completeBookings?[i].age})",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                                const Icon(Icons.person,color: AppColors.primary),
+                                                const SizedBox(width: 2,),
+                                                Text("${getTokenDetailsModel?.completeBookings?[i].name}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                                // SizedBox(width: 5,),
+                                                // Text("(Age:${getTokenDetailsModel?.completeBookings?[i].age})",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
                                               ],
                                             ),
-                                            SizedBox(height: 5,),
+
                                             Row(
                                               children: [
-                                                Icon(Icons.timer,size:22,color: AppColors.primary,),
-                                                Text("${getTokenDetailsModel?.completeBookings?[i].time}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                                const Icon(Icons.person,color: AppColors.primary),
+                                                const SizedBox(width: 2,),
+                                                Text("(Age:${getTokenDetailsModel?.completeBookings?[i].age})",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
                                               ],
                                             ),
-                                            SizedBox(height: 5,),
+                                            const SizedBox(height: 5,),
+                                            Row(
+                                              children: [
+                                                const Icon(Icons.timer,size:22,color: AppColors.primary,),
+                                                Text("${getTokenDetailsModel?.completeBookings?[i].time}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 5,),
                                             Row(children: [
-                                              Icon(Icons.location_on_outlined,color: AppColors.primary),
-                                              Text("${getTokenDetailsModel?.completeBookings?[i].city}",style: TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
+                                              const Icon(Icons.location_on_outlined,color: AppColors.primary),
+                                              Text("${getTokenDetailsModel?.completeBookings?[i].city}",style: const TextStyle(color: AppColors.fntClr,fontWeight: FontWeight.w500),)
                                             ],
                                             ),
                                           ],
                                         ),
 
-                                        SizedBox(height: 5,),
+                                        const SizedBox(height: 5,),
                                         Row(
                                           children: [
                                             Padding(
@@ -507,9 +537,9 @@ class _QueueDetailsState extends State<QueueDetails> {
                                                         color: AppColors.primary,
                                                         borderRadius: BorderRadius.circular(50)
                                                     ),
-                                                    child: Center(child: Text("${getTokenDetailsModel?.completeBookings?[i].tokenNumber}",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500),)),
+                                                    child: Center(child: Text("${getTokenDetailsModel?.completeBookings?[i].tokenNumber}",style: const TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500),)),
                                                   ),
-                                                  SizedBox(height: 10,),
+                                                  const SizedBox(height: 10,),
 
                                                   getTokenDetailsModel?.completeBookings?[i].status == "1" ?InkWell(
                                                     onTap: (){
@@ -525,7 +555,7 @@ class _QueueDetailsState extends State<QueueDetails> {
                                                       child: const Center(child:Text("Complete",style: TextStyle(color: AppColors.whit,fontWeight: FontWeight.w500))
                                                       ),
                                                     ),
-                                                  ) :SizedBox()
+                                                  ) :const SizedBox()
                                                 ],
                                               ),
                                             )
@@ -557,7 +587,7 @@ getStatusApi(String? id,) async {
   var headers = {
     'Cookie': 'ci_session=ef51cb02d985a63bdab71e9a7b0dbdf944badd53'
   };
-  var request = http.MultipartRequest('POST', Uri.parse('https://qtoken.co.in/Apicontroller/update_booking_status'));
+  var request = http.MultipartRequest('POST', Uri.parse('${baseUrl}Apicontroller/update_booking_status'));
   request.fields.addAll({
     'booking_id':id.toString(),
     'status':"1"
@@ -582,7 +612,7 @@ getStatusApi(String? id,) async {
     var headers = {
       'Cookie': 'ci_session=ef51cb02d985a63bdab71e9a7b0dbdf944badd53'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('https://qtoken.co.in/Apicontroller/update_booking_status'));
+    var request = http.MultipartRequest('POST', Uri.parse('${baseUrl}Apicontroller/update_booking_status'));
     request.fields.addAll({
       'booking_id':id.toString(),
       'status':"2"

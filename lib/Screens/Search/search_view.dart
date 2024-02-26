@@ -23,6 +23,8 @@ import '../../Widgets/button.dart';
 import '../Counter/counter_view.dart';
 import '../Dashboard/dashboard_view.dart';
 import 'package:http/http.dart'as http;
+
+import '../Notification/notification_view.dart';
 String? catNewId,userName,cityName,cId,dayId;
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key, this.isFrom}) : super(key: key);
@@ -53,21 +55,13 @@ class _SearchScreenState extends State<SearchScreen> {
   final nameController = TextEditingController();
   final cityController = TextEditingController();
   final counterIdController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.whit,
         appBar: AppBar(
-          // leading: InkWell(
-          //   onTap: (){
-          //     if(userRole == 'user'){
-          //       Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardScreen()));
-          //     }else{
-          //       Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardCounterScreen()));
-          //     }
-          //
-          //   },
-          //     child: const Icon(Icons.arrow_back)),
           automaticallyImplyLeading: false,
 
           shape: const RoundedRectangleBorder(
@@ -75,15 +69,32 @@ class _SearchScreenState extends State<SearchScreen> {
               bottomLeft: Radius.circular(50.0),bottomRight: Radius.circular(50),
             ),),
           toolbarHeight: 60,
-          centerTitle: true,
-          title: const Text("Search Token",style: TextStyle(fontSize: 17),),
+          title: const Text("QUEUE TOKEN",style: TextStyle(fontSize: 17),),
+          actions: [
+            userRole == 'user' ?  InkWell(onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
+              //  Navigator.pop(context);
+
+            },
+                child: const Icon(Icons.search)):SizedBox.shrink(),
+            const SizedBox(width: 15,),
+            Padding(
+              padding: const EdgeInsets.only(right: 10
+              ),
+              child: InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>NotificationScreen()));
+                  },
+                  child: Image.asset("assets/images/notification.png",height: 15,width:20,color: AppColors.whit,)),
+            ),
+          ],
           flexibleSpace: Container(
             decoration: const BoxDecoration(
-              borderRadius:   BorderRadius.only(
+              borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10.0),bottomRight: Radius.circular(10),),
               gradient: RadialGradient(
                   center: Alignment.center,
-                  radius: 1.1,
+                  radius: 1.9,
                   colors: <Color>[AppColors.primary, AppColors.secondary]),
             ),
           ),
@@ -322,7 +333,8 @@ class _SearchScreenState extends State<SearchScreen> {
         dayId = selectedValue.toString();
         isLodding =  false;
       });
-    Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardScreen()));
+
+       Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardScreen()));
     //  if(userRole == 'user'){
     // print('____Som______${userRole}_________');
     //    Navigator.push(context,MaterialPageRoute(builder: (context)=>DashBoardScreen()));
